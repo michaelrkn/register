@@ -1,8 +1,26 @@
 import Head from 'next/head'
 
 export default function Home() {
+  const createRegistrant = async(event) => {
+    event.preventDefault()
+    const data = {
+      name: event.target.name.value,
+      zip: event.target.zip.value,
+      cell: event.target.cell.value,
+      optIn: event.target.optIn.value
+    }
+    const response = await fetch("/api/registrant", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    const result = await response.json()
+    alert(result.state)
+  }
   return (
-    <div class="container">
+    <div className="container">
       <Head>
         <title>Register to Vote</title>
         <meta name="description" content="Register to vote" />
@@ -16,27 +34,28 @@ export default function Home() {
 
       <p>Fill out the form below, and based on your location, we'll tell you how to register.</p>
 
-      <form>
+      <form action="/api/registrant" method="POST" onSubmit={createRegistrant}>
         <fieldset>
           <p>
-            <label for="name">Full Legal Name</label>
+            <label htmlFor="name">Full Legal Name</label>
             <input id="name" name="name" type="text" />
           </p>
 
           <p>
-            <label for="zip">Zip Code</label>
+            <label htmlFor="zip">Zip Code</label>
             <input id="zip" name="zip" type="tel" />
           </p>
 
           <p>
-            <label for="cell">Cell Phone</label>
+            <label htmlFor="cell">Cell Phone</label>
             <input id="cell" name="cell" type="tel" />
           </p>
 
           <p>
-            <label for="opt-in">
-              <input id="opt-in" name="opt-in" type="checkbox" checked />
-              Text me my voting location, how to vote by mail, and other voting info.
+            <label htmlFor="optIn">
+              {/* the checkbox state isn't properly tracked, fixme pls */}
+              <input id="optIn" name="optIn" type="checkbox" defaultChecked />
+              Text me my voting location, how to vote by mail, and other voting info
             </label>
           </p>
 
