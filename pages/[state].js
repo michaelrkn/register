@@ -1,21 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import states from '../public/states-info'
+import statesInfo from '../public/states-info'
 
 export default function Home() {
   const router = useRouter()
   let { state } = router.query
-  let ovrAvailable = false
-  let ovrRequirements = ""
-  let ovrNotes = ""
-  let ovrLink = ""
 
   if (router.isReady) {
-    ovrAvailable = states[state].ovrAvailable
-    ovrRequirements = states[state].ovrRequirements
-    ovrNotes = states[state].ovrNotes
-    ovrLink = states[state].ovrLink
+    const stateInfo = statesInfo[state];
   }
 
   return (
@@ -24,26 +17,29 @@ export default function Home() {
         <title>Register to Vote in {state}</title>
         <meta name="description" content="Register to vote in {state}" />
       </Head>
-
-      <h1>Register to Vote in {state}</h1>
-
-      {ovrAvailable &&
+      {router.isReady &&
         <div>
-          <h2>Register Online</h2>
+          <h1>Register to Vote in {state}</h1>
 
-          <p>If you have {ovrRequirements}, you can register online.</p>
+          {stateInfo.ovrAvailable &&
+            <div>
+              <h2>Register Online</h2>
 
-          {ovrNotes && <p>Click the button below. <strong>{ovrNotes}</strong></p>}
+              <p>If you have {stateInfo.ovrRequirements}, you can register online.</p>
 
-          <p><a href={`${ovrLink}`} target="_blank" className="button primary">Register Online</a></p>
+              {stateInfo.ovrNotes && <p>Click the button below. <strong>{stateInfo.ovrNotes}</strong></p>}
 
-          <h2>Register by Mail</h2>
+              <p><a href={`${stateInfo.ovrLink}`} target="_blank" className="button primary">Register Online</a></p>
+
+              <h2>Register by Mail</h2>
+            </div>
+          }
+
+          <p>[add system for mail registration]</p>
+
+          <p><Link href="/"><a>Start over</a></Link></p>
         </div>
       }
-
-      <p>[add system for mail registration]</p>
-
-      <p><Link href="/"><a>Start over</a></Link></p>
     </div>
   )
 }
