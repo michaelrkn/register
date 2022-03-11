@@ -4,3 +4,8 @@
   --font-size: 2rem;
   --grid-maxWidth: 80rem;
 }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
