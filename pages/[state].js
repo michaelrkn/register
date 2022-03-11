@@ -21,6 +21,12 @@ export default function Home() {
         <div>
           <h1>Register to Vote in {state}</h1>
 
+          {stateInfo.specialCase &&
+            <div>
+              <p>{stateInfo.specialInstructions}</p>
+            </div>
+          }
+
           {stateInfo.ovrAvailable &&
             <div>
               <h2>Register Online</h2>
@@ -35,7 +41,11 @@ export default function Home() {
             </div>
           }
 
-          <p>[add system for mail registration]</p>
+          {!stateInfo.specialCase &&
+            <div>
+              <p>[add system for mail registration]</p>
+            </div>
+          }
 
           <p><Link href="/"><a>Start over</a></Link></p>
         </div>
