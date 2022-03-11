@@ -35,7 +35,7 @@ export default function Home() {
 
               {stateInfo.ovrNotes && <p>Click the button below. <strong>{stateInfo.ovrNotes}</strong></p>}
 
-              <p><a href={`${stateInfo.ovrLink}`} target="_blank" className="button primary">Register Online</a></p>
+              <p><a href={`${stateInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
 
               <h2>Register by Mail</h2>
             </div>
