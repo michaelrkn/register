@@ -19,7 +19,7 @@ export default function Home() {
       </Head>
       {router.isReady &&
         <div>
-          <h1>Register to Vote in {state}</h1>
+          <h1>Register in {state}</h1>
 
           {stateInfo.specialCase &&
             <div>
@@ -29,7 +29,7 @@ export default function Home() {
 
           {stateInfo.ovrAvailable &&
             <div>
-              <h2>Register Online</h2>
+              <h2>Online</h2>
 
               <p>If you have {stateInfo.ovrRequirements}, you can register online.</p>
 
@@ -37,7 +37,7 @@ export default function Home() {
 
               <p><a href={`${stateInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
 
-              <h2>Register by Mail</h2>
+              <h2>By Mail</h2>
             </div>
           }
 

@@ -1,7 +1,7 @@
 @import url(chota/dist/chota.css);
 
 :root {
-  --font-size: 2rem;
+  --font-size: 1.8rem;
   --grid-maxWidth: 80rem;
 }
 
@@ -12,4 +12,8 @@ a {
 
 h1, h2 {
   margin-bottom: 0.35em;
+}
+
+form {
+  margin-bottom: 18px;
 }
