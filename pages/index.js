@@ -133,7 +133,7 @@ export default function Home() {
         state = "Wyoming"
       }
 
-      router.push("/" + state + "/check")
+      router.push("/" + state)
     }
   }
   return (
