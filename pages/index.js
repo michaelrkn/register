@@ -147,7 +147,7 @@ export default function Home() {
 
       <p>You need to register before you can vote. You need to register again if you've moved.</p>
 
-      <p>Don't worry if you don't know if you're registered. There's no harm in registering twice.</p>
+      <p>If you're not sure you're registered, register again. There's no harm in re-registering.</p>
 
       <p>Fill out the form below, and based on your location, we'll tell you how to register.</p>
 
