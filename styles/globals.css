@@ -17,3 +17,12 @@ h1, h2 {
 form {
   margin-bottom: 18px;
 }
+
+[type="checkbox"], [type="radio"] {
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+label {
+  font-size: 1.6rem;
+}
