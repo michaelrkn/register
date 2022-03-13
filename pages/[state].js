@@ -3,11 +3,27 @@ import Link from 'next/link'
 import Address from '../components/address'
 import Name from '../components/name'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import statesInfo from '../public/states-info'
 
 export default function Home() {
   const router = useRouter()
   let { state } = router.query
+
+  const [nameChanged, setNameChanged] = useState(false)
+  const toggleNameChanged = () => {
+    setNameChanged(!nameChanged)
+  }
+
+  const [hasMailingAddress, setMailingAddress] = useState(false)
+  const toggleMailingAddress = () => {
+    setMailingAddress(!hasMailingAddress)
+  }
+
+  const [hasPreviousRegistration, setPreviousRegistration] = useState(false)
+  const togglePreviousRegistration = () => {
+    setPreviousRegistration(!hasPreviousRegistration)
+  }
 
   if (router.isReady) {
     const stateInfo = statesInfo[state];
@@ -55,7 +71,6 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="citizen">
-                      {/* the checkbox state isn't properly tracked, fixme pls */}
                         <input id="citizen" name="citizen" type="checkbox" />
                         I am a U.S. citizen
                       </label>
@@ -65,38 +80,38 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="previousName">
-                      {/* the checkbox state isn't properly tracked, fixme pls */}
-                        <input id="previousName" name="previousName" type="checkbox" />
+                        <input id="previousName" name="previousName" type="checkbox" onChange={toggleNameChanged} />
                         I have changed my name
                       </label>
                     </div>
                   </div>
+                  {nameChanged && <Name type="Previous" />}
                   <Address type="Home" />
                   <div className="row">
                     <div className="col">
                       <label htmlFor="hasMailingAddress">
-                      {/* the checkbox state isn't properly tracked, fixme pls */}
-                        <input id="hasMailingAddress" name="hasMailingAddress" type="checkbox" />
+                        <input id="hasMailingAddress" name="hasMailingAddress" type="checkbox" onChange={toggleMailingAddress} />
                         I get mail at a different address
                       </label>
                     </div>
                   </div>
+                  {hasMailingAddress && <Address type="Mailing" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="previousRegistration">
-                      {/* the checkbox state isn't properly tracked, fixme pls */}
-                        <input id="previousRegistration" name="previousRegistration" type="checkbox" />
+                        <input id="previousRegistration" name="previousRegistration" type="checkbox" onChange={togglePreviousRegistration} />
                         I previously registered at a different address
                       </label>
                     </div>
                   </div>
+                  {hasPreviousRegistration && <Address type="Previous" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>
                       <input id="birthDate" name="birthDate" type="date" />
                     </div>
                     <div className="col">
-                      <label htmlFor="idNumber">Last 4 of Your Social Security Number</label>
+                      <label htmlFor="idNumber">Last 4 of Social Security #</label>
                       <input id="idNumber" name="idNumber" type="text" />
                     </div>
                   </div>
