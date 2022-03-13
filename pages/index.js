@@ -1,8 +1,14 @@
 import Head from 'next/head'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 export default function Home() {
   const router = useRouter()
+
+  const [optIn, setOptIn] = useState(true)
+  const toggleOptIn = () => {
+    setOptIn(!optIn)
+  }
 
   const createRegistrant = async(event) => {
     event.preventDefault()
@@ -10,8 +16,9 @@ export default function Home() {
       name: event.target.name.value,
       zip: event.target.zip.value,
       cell: event.target.cell.value,
-      optIn: event.target.optIn.value
+      optIn: optIn
     }
+    console.log(data)
     const response = await fetch("/api/registrant", {
       method: "POST",
       headers: {
@@ -170,8 +177,7 @@ export default function Home() {
 
           <p>
             <label htmlFor="optIn">
-              {/* the checkbox state isn't properly tracked, fixme pls */}
-              <input id="optIn" name="optIn" type="checkbox" defaultChecked />
+              <input id="optIn" name="optIn" type="checkbox" defaultChecked onChange={toggleOptIn} />
               Text me my voting location, how to vote by mail, and other voting info
             </label>
           </p>
