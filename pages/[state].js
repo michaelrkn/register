@@ -126,7 +126,7 @@ export default function Home() {
                       <div>
                         <label htmlFor="receiveByMail">
                           <input type="radio" id="receiveByMail" name="formMedium" value="mail" />
-                          I don't have a printer. Print the form and mail it to me. Then I will sign and mail it in.
+                          I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
                         </label>
                       </div>
                     </div>
