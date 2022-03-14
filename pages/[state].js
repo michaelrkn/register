@@ -49,7 +49,10 @@ export default function Home() {
             <div>
               <h2>Online</h2>
 
-              <p>If you have {stateInfo.ovrRequirements}, you can register online with the state.</p>
+              {stateInfo.ovrRequirements
+                ? <p>If you have {stateInfo.ovrRequirements}, you can register online with the state.</p>
+                : <p>Any {state} resident can register to vote online.</p>
+              }
 
               {stateInfo.ovrNotes && <p>Click the button below. <strong>{stateInfo.ovrNotes}</strong></p>}
 

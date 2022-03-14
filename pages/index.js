@@ -129,7 +129,7 @@ export default function Home() {
       } else if ( (zip >= 20100 && zip <= 20199) || (zip >= 22000 && zip <= 24699) || (zip == 20598) ) {
         state = "Virginia"
       } else if ( (zip >= 20000 && zip <= 20099) || (zip >= 20200 && zip <= 20599) || (zip >= 56900 && zip <= 56999) ) {
-        state = "Washington DC"
+        state = "Washington, DC"
       } else if (zip >= 98000 && zip <= 99499) {
         state = "Washington"
       } else if (zip >= 24700 && zip <= 26999) {
