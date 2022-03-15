@@ -79,7 +79,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  <Name />
+                  <Name type="" />
                   <div className="row">
                     <div className="col">
                       <label htmlFor="previousName">
