@@ -149,8 +149,6 @@ export default function Home() {
         <meta name="description" content="Register to vote" />
       </Head>
 
-      <h1>Register to Vote</h1>
-
       <p>You need to register before you can vote. You need to register again if you&apos;ve moved.</p>
 
       <p>If you&apos;re not sure you&apos;re registered, there&apos;s no harm in re-registering.</p>

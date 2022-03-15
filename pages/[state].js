@@ -37,17 +37,16 @@ export default function Home() {
       </Head>
       {router.isReady &&
         <div>
-          <h1>Register in {state}</h1>
-
           {stateInfo.specialCase &&
             <div>
+              <h1>Register in {state}</h1>
               <p>{stateInfo.specialInstructions}</p>
             </div>
           }
 
           {stateInfo.ovrAvailable &&
             <div>
-              <h2>Online</h2>
+              <h1>Register Online</h1>
 
               {stateInfo.ovrRequirements
                 ? <p>If you have {stateInfo.ovrRequirements}, you can register online with the state.</p>
@@ -62,13 +61,15 @@ export default function Home() {
 
           {!stateInfo.specialCase &&
             <div>
-              {stateInfo.ovrAvailable
-                ? <h2>By Mail</h2>
-                : <p>{state} does not have online voter registration, so you must register by mail (or in-person).</p>
+              <h1>Register By Mail</h1>
+              {!stateInfo.ovrAvailable &&
+                <p>{state} does not have online voter registration, so you must register by mail (or in person).</p>
               }
-              <p>Fill out the form below.</p>
-              <p>Either you can print it out, or we can print it and mail it to you.</p>
-              <p>Then sign it and mail it in.</p>
+              <ol>
+                <li>Fill out the form below.</li>
+                <li>Either you can print it, or we can print it and mail it to you.</li>
+                <li>Sign it and mail it in.</li>
+              </ol>
               <form>
                 <fieldset>
                   <div className="row">

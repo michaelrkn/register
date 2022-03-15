@@ -3,6 +3,7 @@
 :root {
   --font-size: 1.8rem;
   --grid-maxWidth: 80rem;
+  --color-primary: #9013fe
 }
 
 a {
@@ -25,4 +26,8 @@ form {
 
 label {
   font-size: 1.6rem;
+}
+
+.container {
+  margin-top: 12px;
 }
