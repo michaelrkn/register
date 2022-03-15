@@ -18,7 +18,6 @@ export default function Home() {
       cell: event.target.cell.value,
       optIn: optIn
     }
-    console.log(data)
     const response = await fetch("/api/registrant", {
       method: "POST",
       headers: {
