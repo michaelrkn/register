@@ -134,8 +134,11 @@ export default function Home() {
                       <label htmlFor="birthDate">Date of Birth</label>
                       <input id="birthDate" name="birthDate" type="date" onBlur={warnIfMinor} />
                     </div>
+                  </div>
+                  <label>In the space below for ID Number: {stateInfo.id_number_msg}</label>
+                  <div className="row">
                     <div className="col">
-                      <label htmlFor="idNumber">Last 4 of Social Security #</label>
+                      <label htmlFor="idNumber">ID Number</label>
                       <input id="idNumber" name="idNumber" type="text" />
                     </div>
                   </div>
