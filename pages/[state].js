@@ -8,7 +8,7 @@ import statesInfo from '../public/states-info'
 
 export default function Home() {
   const router = useRouter()
-  let { state } = router.query
+  let { state, zip } = router.query
 
   const [nameChanged, setNameChanged] = useState(false)
   const toggleNameChanged = () => {
@@ -89,7 +89,7 @@ export default function Home() {
                     </div>
                   </div>
                   {nameChanged && <Name type="Previous" />}
-                  <Address type="Home" />
+                  <Address type="Home" state = {`${state}`} zip={`${zip}`} />
                   <div className="row">
                     <div className="col">
                       <label htmlFor="hasMailingAddress">
@@ -98,7 +98,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  {hasMailingAddress && <Address type="Mailing" />}
+                  {hasMailingAddress && <Address type="Mailing" state="" zip="" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="previousRegistration">
@@ -107,7 +107,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  {hasPreviousRegistration && <Address type="Previous" />}
+                  {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>

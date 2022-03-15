@@ -140,7 +140,7 @@ export default function Home() {
         state = "Wyoming"
       }
 
-      router.push("/" + state)
+      router.push("/" + state + "?zip=" + data.zip)
     }
   }
   return (
