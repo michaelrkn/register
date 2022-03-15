@@ -15,6 +15,25 @@ export default function Home() {
     setNameChanged(!nameChanged)
   }
 
+  const warnIfMinor = (event) => {
+    const age = calculateAge(event.target.value)
+    if (age < 18) {
+      alert("In " + state + ", you can register to vote " + stateInfo.sub_18_msg + ".")
+    }
+  }
+
+  const calculateAge = (birthDateInput) => {
+    const birthDate = new Date(birthDateInput)
+    const today = new Date()
+    const yearDifference = today.getFullYear() - birthDate.getFullYear()
+    const monthDifference = today.getMonth() - birthDate.getMonth()
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      return yearDifference - 1
+    } else {
+      return yearDifference
+    }
+  }
+
   const [hasMailingAddress, setMailingAddress] = useState(false)
   const toggleMailingAddress = () => {
     setMailingAddress(!hasMailingAddress)
@@ -25,8 +44,9 @@ export default function Home() {
     setPreviousRegistration(!hasPreviousRegistration)
   }
 
+  let stateInfo = {}
   if (router.isReady) {
-    const stateInfo = statesInfo[state];
+    stateInfo = statesInfo[state];
   }
 
   return (
@@ -112,7 +132,7 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>
-                      <input id="birthDate" name="birthDate" type="date" />
+                      <input id="birthDate" name="birthDate" type="date" onBlur={warnIfMinor} />
                     </div>
                     <div className="col">
                       <label htmlFor="idNumber">Last 4 of Social Security #</label>
