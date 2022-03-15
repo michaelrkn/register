@@ -89,7 +89,7 @@ export default function Home() {
                     </div>
                   </div>
                   {nameChanged && <Name type="Previous" />}
-                  <Address type="Home" state = {`${state}`} zip={`${zip}`} />
+                  <Address type="Home" state={state} zip={zip} />
                   <div className="row">
                     <div className="col">
                       <label htmlFor="hasMailingAddress">

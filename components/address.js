@@ -1,5 +1,22 @@
+import { useState, useEffect } from 'react'
+
 export default function Address(props) {
   const type = props.type.toLowerCase()
+  const [city, setCity] = useState("")
+
+  useEffect(() => {
+    if (props.zip) {
+      if (process.env.NODE_ENV === "production") {
+        fetch("https://maps.googleapis.com/maps/api/geocode/json?key=" + process.env.NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY + "&address=" + props.zip)
+        .then(response => response.json())
+        .then(json => json.results[0].address_components[1].long_name)
+        .then(city => setCity(city))
+      } else {
+        setCity("Anytown")
+      }
+    }
+  }, [props.zip])
+
   return (
     <div>
       <div className="row">
@@ -15,11 +32,11 @@ export default function Address(props) {
       <div className="row">
         <div className="col">
           <label htmlFor={`"${type}City"`}>City</label>
-          <input id={`"${type}City"`} name={`"${type}City"`} type="text" />
+          <input id={`"${type}City"`} name={`"${type}City"`} type="text" defaultValue={city} />
         </div>
         <div className="col-4">
           <label htmlFor={`"${type}State"`}>State</label>
-          <select id={`"${type}State"`} name={`"${type}State"`} value={props.state}>
+          <select id={`"${type}State"`} name={`"${type}State"`} defaultValue={props.state}>
             <option></option>
             <option value="Alabama">Alabama</option>
             <option value="Alaska">Alaska</option>
@@ -77,7 +94,7 @@ export default function Address(props) {
         </div>
         <div className="col-3">
           <label htmlFor={`"${type}Zip"`}>Zip</label>
-          <input id={`"${type}Zip"`} name={`"${type}Zip"`} type="tel" value={`${props.zip}`} />
+          <input id={`"${type}Zip"`} name={`"${type}Zip"`} type="tel" defaultValue={props.zip} />
         </div>
       </div>
     </div>
