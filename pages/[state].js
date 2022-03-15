@@ -144,6 +144,23 @@ export default function Home() {
                   </div>
                   <div className="row">
                     <div className="col">
+                      <label htmlFor="race">Race {!stateInfo.requires_race && "(optional but appreciated)"}</label>
+                      <select id="race" name="race">
+                        <option></option>
+                        <option value="Asian">Asian</option>
+                        <option value="Black or African American">Black or African American</option>
+                        <option value="Hispanic or Latino">Hispanic or Latino</option>
+                        <option value="Native American or Alaskan Native">Native American or Alaskan Native</option>
+                        <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                        <option value="Other">Other</option>
+                        <option value="Two or More Races">Two or More Races</option>
+                        <option value="White">White</option>
+                        <option value="Decline to State">Decline to State</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
                       <div>
                         <label htmlFor="receiveByEmail">
                           <input type="radio" id="receiveByEmail" name="formMedium" value="email" />
