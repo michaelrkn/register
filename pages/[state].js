@@ -171,7 +171,7 @@ export default function Home() {
                       <label htmlFor="party">Party</label>
                       <select id="party" name="party">
                         <option></option>
-                        {stateMailInfo.party_list.map(party => <option value={party}>{party}</option>)}
+                        {stateMailInfo.party_list.map((party, index) => <option key={index} value={party}>{party}</option>)}
                         <option value={stateMailInfo.no_party_msg}>{stateMailInfo.no_party_msg}</option>
                       </select>
                     </div>
