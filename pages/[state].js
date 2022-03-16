@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import statesOnlineInfo from '../public/states-online-info'
 import statesMailInfo from '../public/states-mail-info'
+import statesPrintingAvailable from '../public/states-printing-available'
 
 export default function Home() {
   const router = useRouter()
@@ -47,9 +48,11 @@ export default function Home() {
 
   let stateOnlineInfo = {}
   let stateMailInfo = {}
+  let statePrintingAvailable = {}
   if (router.isReady) {
-    stateOnlineInfo = statesOnlineInfo[state];
-    stateMailInfo = statesMailInfo[state];
+    stateOnlineInfo = statesOnlineInfo[state]
+    stateMailInfo = statesMailInfo[state]
+    statePrintingAvailable = statesPrintingAvailable[state]
   }
 
   return (
@@ -90,7 +93,10 @@ export default function Home() {
               }
               <ol>
                 <li>Fill out the form below.</li>
-                <li>Either you can print it, or we can print it and mail it to you.</li>
+                {statePrintingAvailable
+                  ? <li>Either you can print it, or we can print it and mail it to you.</li>
+                  : <li>Print it out.</li>
+                }
                 <li>Sign it and mail it in.</li>
               </ol>
               <form>
@@ -170,22 +176,24 @@ export default function Home() {
                       </select>
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col">
-                      <div>
-                        <label htmlFor="receiveByEmail">
-                          <input type="radio" id="receiveByEmail" name="formMedium" value="email" />
-                          I have access to a printer. I will print, sign, and mail my application.
-                        </label>
-                      </div>
-                      <div>
-                        <label htmlFor="receiveByMail">
-                          <input type="radio" id="receiveByMail" name="formMedium" value="mail" />
-                          I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
-                        </label>
+                  {statePrintingAvailable &&
+                    <div className="row">
+                      <div className="col">
+                        <div>
+                          <label htmlFor="receiveByEmail">
+                            <input type="radio" id="receiveByEmail" name="formMedium" value="email" />
+                            I have access to a printer. I will print, sign, and mail my application.
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="receiveByMail">
+                            <input type="radio" id="receiveByMail" name="formMedium" value="mail" />
+                            I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
+                          </label>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  }
                   <div className="row"><button type="submit">Print My Application</button></div>
                 </fieldset>
               </form>
