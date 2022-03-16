@@ -158,6 +158,14 @@ export default function Home() {
                         <option value="Decline to State">Decline to State</option>
                       </select>
                     </div>
+                    <div className="col">
+                      <label htmlFor="party">Party</label>
+                      <select id="party" name="party">
+                        <option></option>
+                        {stateInfo.party_list.map(party => <option value={party}>{party}</option>)}
+                        <option value={stateInfo.no_party_msg}>{stateInfo.no_party_msg}</option>
+                      </select>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col">
