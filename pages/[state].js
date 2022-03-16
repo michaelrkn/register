@@ -4,7 +4,8 @@ import Address from '../components/address'
 import Name from '../components/name'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import statesInfo from '../public/states-info'
+import statesOnlineInfo from '../public/states-online-info'
+import statesMailInfo from '../public/states-mail-info'
 
 export default function Home() {
   const router = useRouter()
@@ -18,7 +19,7 @@ export default function Home() {
   const warnIfMinor = (event) => {
     const age = calculateAge(event.target.value)
     if (age < 18) {
-      alert("In " + state + ", you can register to vote " + stateInfo.sub_18_msg + ".")
+      alert("In " + state + ", you can register to vote " + stateMailInfo.sub_18_msg + ".")
     }
   }
 
@@ -44,9 +45,11 @@ export default function Home() {
     setPreviousRegistration(!hasPreviousRegistration)
   }
 
-  let stateInfo = {}
+  let stateOnlineInfo = {}
+  let stateMailInfo = {}
   if (router.isReady) {
-    stateInfo = statesInfo[state];
+    stateOnlineInfo = statesOnlineInfo[state];
+    stateMailInfo = statesMailInfo[state];
   }
 
   return (
@@ -57,32 +60,32 @@ export default function Home() {
       </Head>
       {router.isReady &&
         <div>
-          {stateInfo.specialCase &&
+          {stateOnlineInfo.specialCase &&
             <div>
               <h1>Register in {state}</h1>
-              <p>{stateInfo.specialInstructions}</p>
+              <p>{stateOnlineInfo.specialInstructions}</p>
             </div>
           }
 
-          {stateInfo.ovrAvailable &&
+          {stateOnlineInfo.ovrAvailable &&
             <div>
               <h1>Register Online</h1>
 
-              {stateInfo.ovrRequirements
-                ? <p>If you have {stateInfo.ovrRequirements}, you can register online with the state.</p>
+              {stateOnlineInfo.ovrRequirements
+                ? <p>If you have {stateOnlineInfo.ovrRequirements}, you can register online with the state.</p>
                 : <p>Any {state} resident can register to vote online.</p>
               }
 
-              {stateInfo.ovrNotes && <p>Click the button below. <strong>{stateInfo.ovrNotes}</strong></p>}
+              {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
 
-              <p><a href={`${stateInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
+              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
             </div>
           }
 
-          {!stateInfo.specialCase &&
+          {!stateOnlineInfo.specialCase &&
             <div>
               <h1>Register By Mail</h1>
-              {!stateInfo.ovrAvailable &&
+              {!stateOnlineInfo.ovrAvailable &&
                 <p>{state} does not have online voter registration, so you must register by mail (or in person).</p>
               }
               <ol>
@@ -135,7 +138,7 @@ export default function Home() {
                       <input id="birthDate" name="birthDate" type="date" onBlur={warnIfMinor} />
                     </div>
                   </div>
-                  <label>In the space below for ID Number: {stateInfo.id_number_msg}</label>
+                  <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
                   <div className="row">
                     <div className="col">
                       <label htmlFor="idNumber">ID Number</label>
@@ -144,7 +147,7 @@ export default function Home() {
                   </div>
                   <div className="row">
                     <div className="col">
-                      <label htmlFor="race">Race {!stateInfo.requires_race && "(optional but appreciated)"}</label>
+                      <label htmlFor="race">Race {!stateMailInfo.requires_race && "(optional but appreciated)"}</label>
                       <select id="race" name="race">
                         <option></option>
                         <option value="Asian">Asian</option>
@@ -162,8 +165,8 @@ export default function Home() {
                       <label htmlFor="party">Party</label>
                       <select id="party" name="party">
                         <option></option>
-                        {stateInfo.party_list.map(party => <option value={party}>{party}</option>)}
-                        <option value={stateInfo.no_party_msg}>{stateInfo.no_party_msg}</option>
+                        {stateMailInfo.party_list.map(party => <option value={party}>{party}</option>)}
+                        <option value={stateMailInfo.no_party_msg}>{stateMailInfo.no_party_msg}</option>
                       </select>
                     </div>
                   </div>
