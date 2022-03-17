@@ -24,6 +24,11 @@ export default function Home() {
     setNameChanged(!nameChanged)
   }
 
+  const [medium, setMedium] = useState(undefined)
+  const chooseMedium = (event) => {
+    setMedium(event.target.value)
+  }
+
   const [submitting, setSubmitting] = useState(false)
 
   const warnIfMinor = (event) => {
@@ -76,12 +81,12 @@ export default function Home() {
     const data = {
       lang: 'en',
       partner_id: '1',
-      send_confirmation_reminder_emails: true,
+      send_confirmation_reminder_emails: medium === 'email',
       created_at: now,
       updated_at: now,
       date_of_birth: formattedBirthDate,
       id_number: event.target.idNumber.value,
-      email_address: 'noemail@example.com',
+      email_address: event.target.email.value || 'noemail@example.com',
       first_registration: !hasPreviousRegistration,
       us_citizen: isCitizen,
       has_state_license: false,
@@ -118,7 +123,7 @@ export default function Home() {
       prev_city: event.target.previousCity.value,
       prev_state_id: event.target.previousState.value,
       prev_zip_code: event.target.previousZip.value,
-      opt_in_email: false,
+      opt_in_email: medium === 'email',
       opt_in_sms: true, // #fixme
       opt_in_volunteer: false,
       partner_opt_in_email: false,
@@ -138,31 +143,40 @@ export default function Home() {
     const fullUrl = process.env.NODE_ENV === "production" ? url : "https://cors-anywhere.herokuapp.com/" + url
     const response = await fetch(fullUrl, options)
     if (response.ok) {
-      const result = await response.json()
-      const forSeconds = (seconds) => new Promise(res => setTimeout(res, seconds * 1000))
-      await forSeconds(4) // 4 seconds seems to be the minimum time needed to generate
-      for (var i = 0; i <= 10; i++) {
-        if (i === 10) {
-          setSubmitting(false)
-          alert("We're sorry, something went wrong when generating your form. Please try again.")
-          throw 'Waiting too long for RTV PDF'
-        }
-        const pdfCheck = await fetch("https://cors-anywhere.herokuapp.com/" + result.pdfurl)
-        const pdfCheckResult = await pdfCheck.text()
-        const pdfUrlRegex = /(?<=;URL=')(.*)(?='" \/>)/g
-        const foundPdfUrlArray = [...pdfCheckResult.matchAll(pdfUrlRegex)][0]
-        if (foundPdfUrlArray) {
-          setSubmitting(false)
-          window.location = foundPdfUrlArray[0]
-          break
-        } else {
-          await forSeconds(2)
-        }
+      if (medium === 'email') {
+        setSubmitting(false)
+        alert('Your form is being created and sent to ' + event.target.email.value + '. Please check your email and print, sign, and mail in your form ASAP.')
+      } else {
+        redirectToPdf(response)
       }
     } else {
       setSubmitting(false)
       const error = await response.text()
       alert(error)
+    }
+  }
+
+  const redirectToPdf = async (response) => {
+    const result = await response.json()
+    const forSeconds = (seconds) => new Promise(res => setTimeout(res, seconds * 1000))
+    await forSeconds(4) // 4 seconds seems to be the minimum time needed to generate
+    for (var i = 0; i <= 10; i++) {
+      if (i === 10) {
+        setSubmitting(false)
+        alert("We're sorry, something went wrong when generating your form. Please try again.")
+        throw 'Waiting too long for RTV PDF'
+      }
+      const pdfCheck = await fetch("https://cors-anywhere.herokuapp.com/" + result.pdfurl)
+      const pdfCheckResult = await pdfCheck.text()
+      const pdfUrlRegex = /(?<=;URL=')(.*)(?='" \/>)/g
+      const foundPdfUrlArray = [...pdfCheckResult.matchAll(pdfUrlRegex)][0]
+      if (foundPdfUrlArray) {
+        setSubmitting(false)
+        window.location = foundPdfUrlArray[0]
+        break
+      } else {
+        await forSeconds(2)
+      }
     }
   }
 
@@ -287,30 +301,48 @@ export default function Home() {
                       </select>
                     </div>
                   </div>
-                  {statePrintingAvailable &&
-                    <div className="row">
-                      <div className="col">
-                        <div>
-                          <label htmlFor="receiveByEmail">
-                            <input type="radio" id="receiveByEmail" name="formMedium" value="email" />
-                            I have access to a printer. I will print, sign, and mail my application.
-                          </label>
-                        </div>
+                  <div className="row">
+                    <div className="col">
+                      <div>
+                        <label htmlFor="printNow">
+                          <input type="radio" id="printNow" name="formMedium" value="print" onChange={chooseMedium} />
+                          I will print, sign, and mail my application now.
+                        </label>
+                      </div>
+                      <div>
+                        <label htmlFor="receiveByEmail">
+                          <input type="radio" id="receiveByEmail" name="formMedium" value="email" onChange={chooseMedium} />
+                          Email me my application. I will print, sign, and mail it ASAP.
+                        </label>
+                      </div>
+                      {statePrintingAvailable &&
                         <div>
                           <label htmlFor="receiveByMail">
-                            <input type="radio" id="receiveByMail" name="formMedium" value="mail" />
+                            <input type="radio" id="receiveByMail" name="formMedium" value="mail" onChange={chooseMedium} />
                             I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
                           </label>
                         </div>
+                      }
+                    </div>
+                  </div>
+                  <div className={medium !== "email" ? "hidden" : ""}>
+                    <div className="row">
+                      <div className="col">
+                        <label htmlFor="email">Email</label>
+                        <input type="text" id="email" name="email" />
                       </div>
                     </div>
-                  }
-                  <div className="row"><button type="submit" disabled={submitting}>
-                    {!submitting
-                      ? <span>Print My Application</span>
-                      : <span>One moment...</span>
-                    }
-                  </button></div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <button type="submit" disabled={submitting}>
+                        {!submitting
+                          ? <span>Prepare My Application</span>
+                          : <span>One moment...</span>
+                        }
+                      </button>
+                    </div>
+                  </div>
                 </fieldset>
               </form>
             </div>
