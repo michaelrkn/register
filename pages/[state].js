@@ -24,6 +24,8 @@ export default function Home() {
     setNameChanged(!nameChanged)
   }
 
+  const [submitting, setSubmitting] = useState(false)
+
   const warnIfMinor = (event) => {
     age = calculateAge(event.target.value)
     if (age < 18) {
@@ -64,6 +66,7 @@ export default function Home() {
 
   const generateApplication = async(event) => {
     event.preventDefault()
+    setSubmitting(true)
 
     const now = generateTimestamp()
     const birthDate = event.target.birthDate.value
@@ -130,12 +133,36 @@ export default function Home() {
       },
       body: JSON.stringify(data)
     }
-    if (process.env.NODE_ENV === "production") {
-      fetch("https://register.rockthevote.com/api/v4/registrations.json", options)
-    } else {
-      const response = await fetch("https://cors-anywhere.herokuapp.com/https://register.rockthevote.com/api/v4/registrations.json", options)
+
+    const url = "https://register.rockthevote.com/api/v4/registrations.json"
+    const fullUrl = process.env.NODE_ENV === "production" ? url : "https://cors-anywhere.herokuapp.com/" + url
+    const response = await fetch(fullUrl, options)
+    if (response.ok) {
       const result = await response.json()
-      console.log(result)
+      const forSeconds = (seconds) => new Promise(res => setTimeout(res, seconds * 1000))
+      await forSeconds(4) // 4 seconds seems to be the minimum time needed to generate
+      for (var i = 0; i <= 10; i++) {
+        if (i === 10) {
+          setSubmitting(false)
+          alert("We're sorry, something went wrong when generating your form. Please try again.")
+          throw 'Waiting too long for RTV PDF'
+        }
+        const pdfCheck = await fetch("https://cors-anywhere.herokuapp.com/" + result.pdfurl)
+        const pdfCheckResult = await pdfCheck.text()
+        const pdfUrlRegex = /(?<=;URL=')(.*)(?='" \/>)/g
+        const foundPdfUrlArray = [...pdfCheckResult.matchAll(pdfUrlRegex)][0]
+        if (foundPdfUrlArray) {
+          setSubmitting(false)
+          window.location = foundPdfUrlArray[0]
+          break
+        } else {
+          await forSeconds(2)
+        }
+      }
+    } else {
+      setSubmitting(false)
+      const error = await response.text()
+      alert(error)
     }
   }
 
@@ -278,7 +305,12 @@ export default function Home() {
                       </div>
                     </div>
                   }
-                  <div className="row"><button type="submit">Print My Application</button></div>
+                  <div className="row"><button type="submit" disabled={submitting}>
+                    {!submitting
+                      ? <span>Print My Application</span>
+                      : <span>One moment...</span>
+                    }
+                  </button></div>
                 </fieldset>
               </form>
             </div>
