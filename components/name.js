@@ -6,8 +6,8 @@ export default function Name(props) {
     <div>
       <div className="row">
         <div className="col-2">
-          <label htmlFor={`"title${type}"`}>{type} Title</label>
-          <select id={`"title${type}"`} name={`"title${type}"`}>
+          <label htmlFor={"title" + type}>{type} Title</label>
+          <select id={"title" + type} name={"title" + type}>
             <option></option>
             <option value="Mr.">Mr.</option>
             <option value="Ms.">Ms.</option>
@@ -16,16 +16,16 @@ export default function Name(props) {
           </select>
         </div>
         <div className="col">
-          <label htmlFor={`"firstName${type}"`}>{type} First Name</label>
-          <input id={`"firstName${type}"`} name={`"firstName${type}"`} type="text" />
+          <label htmlFor={"firstName" + type}>{type} First Name</label>
+          <input id={"firstName" + type} name={"firstName" + type} type="text" />
         </div>
         <div className="col">
-          <label htmlFor={`"lastName${type}"`}>{type} Last Name</label>
-          <input id={`"lastName${type}"`} name={`"lastName${type}"`} type="text" />
+          <label htmlFor={"lastName" + type}>{type} Last Name</label>
+          <input id={"lastName" + type} name={"lastName" + type} type="text" />
         </div>
         <div className="col-3">
-          <label htmlFor={`"suffix${type}"`}>{type} Suffix</label>
-          <select id={`"suffix${type}"`} name={`"suffix${type}"`}>
+          <label htmlFor={"suffix" + type}>{type} Suffix</label>
+          <select id={"suffix" + type} name={"suffix" + type}>
             <option></option>
             <option value="Jr.">Jr.</option>
             <option value="Sr.">Sr.</option>
