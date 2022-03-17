@@ -7,10 +7,17 @@ import { useState } from 'react'
 import statesOnlineInfo from '../public/states-online-info'
 import statesMailInfo from '../public/states-mail-info'
 import statesPrintingAvailable from '../public/states-printing-available'
+import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
   let { state, zip } = router.query
+  let age
+
+  const [isCitizen, setCitizen] = useState(false)
+  const toggleCitizen = () => {
+    setCitizen(!isCitizen)
+  }
 
   const [nameChanged, setNameChanged] = useState(false)
   const toggleNameChanged = () => {
@@ -18,7 +25,7 @@ export default function Home() {
   }
 
   const warnIfMinor = (event) => {
-    const age = calculateAge(event.target.value)
+    age = calculateAge(event.target.value)
     if (age < 18) {
       alert("In " + state + ", you can register to vote " + stateMailInfo.sub_18_msg + ".")
     }
@@ -53,6 +60,83 @@ export default function Home() {
     stateOnlineInfo = statesOnlineInfo[state]
     stateMailInfo = statesMailInfo[state]
     statePrintingAvailable = statesPrintingAvailable[state]
+  }
+
+  const generateApplication = async(event) => {
+    event.preventDefault()
+
+    const now = generateTimestamp()
+    const birthDate = event.target.birthDate.value
+    const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
+    const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
+
+    const data = {
+      lang: 'en',
+      partner_id: '1',
+      send_confirmation_reminder_emails: true,
+      created_at: now,
+      updated_at: now,
+      date_of_birth: formattedBirthDate,
+      id_number: event.target.idNumber.value,
+      email_address: 'noemail@example.com',
+      first_registration: !hasPreviousRegistration,
+      us_citizen: isCitizen,
+      has_state_license: false,
+      is_eighteen_or_older: age >= 18,
+      name_title: event.target.title.value,
+      first_name: event.target.firstName.value,
+      middle_name: '',
+      last_name: event.target.lastName.value,
+      name_suffix: event.target.suffix.value,
+      home_address: event.target.homeAddress.value,
+      home_unit: event.target.homeUnit.value,
+      home_city: event.target.homeCity.value,
+      home_state_id: event.target.homeState.value,
+      home_zip_code: event.target.homeZip.value,
+      has_mailing_address: hasMailingAddress,
+      mailing_address: event.target.mailingAddress.value,
+      mailing_unit: event.target.mailingUnit.value,
+      mailing_city: event.target.mailingCity.value,
+      mailing_state_id: event.target.mailingState.value,
+      mailing_zip_code: event.target.mailingZip.value,
+      race: event.target.race.value,
+      party: event.target.party.value,
+      phone: '', // #fixme
+      phone_type: '', // #fixme
+      change_of_name: nameChanged,
+      prev_name_title: event.target.titlePrevious.value,
+      prev_first_name: event.target.firstNamePrevious.value,
+      prev_middle_name: '',
+      prev_last_name: event.target.lastNamePrevious.value,
+      prev_name_suffix: event.target.suffixPrevious.value,
+      change_of_address: hasPreviousRegistration,
+      prev_address: event.target.previousAddress.value,
+      prev_unit: event.target.previousUnit.value,
+      prev_city: event.target.previousCity.value,
+      prev_state_id: event.target.previousState.value,
+      prev_zip_code: event.target.previousZip.value,
+      opt_in_email: false,
+      opt_in_sms: true, // #fixme
+      opt_in_volunteer: false,
+      partner_opt_in_email: false,
+      partner_opt_in_sms: false,
+      partner_opt_in_volunteer: false
+    }
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }
+    if (process.env.NODE_ENV === "production") {
+      fetch("https://register.rockthevote.com/api/v4/registrations.json", options)
+    } else {
+      const response = await fetch("https://cors-anywhere.herokuapp.com/https://register.rockthevote.com/api/v4/registrations.json", options)
+      const result = await response.json()
+      console.log(result)
+    }
   }
 
   return (
@@ -99,12 +183,12 @@ export default function Home() {
                 }
                 <li>Sign it and mail it in.</li>
               </ol>
-              <form>
+              <form onSubmit={generateApplication}>
                 <fieldset>
                   <div className="row">
                     <div className="col">
                       <label htmlFor="citizen">
-                        <input id="citizen" name="citizen" type="checkbox" />
+                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen}/>
                         I am a U.S. citizen
                       </label>
                     </div>
@@ -118,7 +202,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  {nameChanged && <Name type="Previous" />}
+                  <div className={!nameChanged && "hidden"}><Name type="Previous" /></div>
                   <Address type="Home" state={state} zip={zip} />
                   <div className="row">
                     <div className="col">
@@ -128,7 +212,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  {hasMailingAddress && <Address type="Mailing" state="" zip="" />}
+                  <div className={!hasMailingAddress && "hidden"}><Address type="Mailing" state="" zip="" /></div>
                   <div className="row">
                     <div className="col">
                       <label htmlFor="previousRegistration">
@@ -137,7 +221,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
+                  <div className={!hasPreviousRegistration && "hidden"}><Address type="Previous" state="" zip="" /></div>
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>

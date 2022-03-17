@@ -31,3 +31,7 @@ label {
 .container {
   margin-top: 12px;
 }
+
+.hidden {
+  display: none;
+}
