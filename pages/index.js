@@ -11,7 +11,7 @@ export default function Home() {
     setOptIn(!optIn)
   }
 
-  const createRegistrant = async(event) => {
+  const createRegistrant = async (event) => {
     event.preventDefault()
 
     const zip = event.target.zip.value
@@ -19,12 +19,13 @@ export default function Home() {
     if (state === undefined) {
       alert("Please enter a valid zip code.")
     } else {
+      const randomEmail = (Math.random() + 1).toString(36).substring(7) + '@example.com'
       const data = {
         lang: 'en',
         partner_id: '1', // #fixme change to real value
         send_confirmation_reminder_emails: false,
         date_of_birth: '01-01-2000',
-        email_address: 'noemail@example.com',
+        email_address: randomEmail,
         home_zip_code: zip,
         us_citizen: true,
         name_title: 'Ms.',
@@ -70,17 +71,17 @@ export default function Home() {
         <fieldset>
           <p>
             <label htmlFor="name">Full Legal Name</label>
-            <input id="name" name="name" type="text" />
+            <input id="name" name="name" type="text" required />
           </p>
 
           <p>
             <label htmlFor="zip">Zip Code</label>
-            <input id="zip" name="zip" type="tel" />
+            <input id="zip" name="zip" type="tel" maxLength="5" minLength="5" required />
           </p>
 
           <p>
-            <label htmlFor="cell">Cell Phone</label>
-            <input id="cell" name="cell" type="tel" />
+            <label htmlFor="cell">Cell Phone (numbers only)</label>
+            <input id="cell" name="cell" type="tel" maxLength="10" minLength="10" required />
           </p>
 
           <p>

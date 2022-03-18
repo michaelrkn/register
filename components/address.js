@@ -22,7 +22,7 @@ export default function Address(props) {
       <div className="row">
         <div className="col">
           <label htmlFor={type + "Address"}>{props.type} Address</label>
-          <input id={type + "Address"} name={type + "Address"} type="text" />
+          <input id={type + "Address"} name={type + "Address"} type="text" required />
         </div>
         <div className="col-2">
           <label htmlFor={type + "Unit"}>Unit #</label>
@@ -32,11 +32,11 @@ export default function Address(props) {
       <div className="row">
         <div className="col">
           <label htmlFor={type + "City"}>City</label>
-          <input id={type + "City"} name={type + "City"} type="text" defaultValue={city} />
+          <input id={type + "City"} name={type + "City"} type="text" defaultValue={city} required />
         </div>
         <div className="col-4">
           <label htmlFor={type + "State"}>State</label>
-          <select id={type + "State"} name={type + "State"} defaultValue={props.state}>
+          <select id={type + "State"} name={type + "State"} defaultValue={props.state} required>
             <option></option>
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
@@ -93,7 +93,7 @@ export default function Address(props) {
         </div>
         <div className="col-3">
           <label htmlFor={type + "Zip"}>Zip</label>
-          <input id={type + "Zip"} name={type + "Zip"} type="tel" defaultValue={props.zip} />
+          <input id={type + "Zip"} name={type + "Zip"} type="tel" maxLength="5" minLength="5" defaultValue={props.zip} required />
         </div>
       </div>
     </div>

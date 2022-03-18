@@ -77,8 +77,9 @@ export default function Home() {
     const birthDate = event.target.birthDate.value
     const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
     const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
+    const randomEmail = (Math.random() + 1).toString(36).substring(7) + '@example.com'
 
-    const data = {
+    const basicData = {
       lang: 'en',
       partner_id: '1',
       send_confirmation_reminder_emails: medium === 'email',
@@ -86,7 +87,7 @@ export default function Home() {
       updated_at: now,
       date_of_birth: formattedBirthDate,
       id_number: event.target.idNumber.value,
-      email_address: event.target.email.value || 'noemail@example.com',
+      email_address: event.target.email.value || randomEmail,
       first_registration: !hasPreviousRegistration,
       us_citizen: isCitizen,
       has_state_license: false,
@@ -102,34 +103,45 @@ export default function Home() {
       home_state_id: event.target.homeState.value,
       home_zip_code: event.target.homeZip.value,
       has_mailing_address: hasMailingAddress,
-      mailing_address: event.target.mailingAddress.value,
-      mailing_unit: event.target.mailingUnit.value,
-      mailing_city: event.target.mailingCity.value,
-      mailing_state_id: event.target.mailingState.value,
-      mailing_zip_code: event.target.mailingZip.value,
       race: event.target.race.value,
       party: event.target.party.value,
       phone: '', // #fixme
       phone_type: '', // #fixme
       change_of_name: nameChanged,
-      prev_name_title: event.target.titlePrevious.value,
-      prev_first_name: event.target.firstNamePrevious.value,
-      prev_middle_name: '',
-      prev_last_name: event.target.lastNamePrevious.value,
-      prev_name_suffix: event.target.suffixPrevious.value,
       change_of_address: hasPreviousRegistration,
-      prev_address: event.target.previousAddress.value,
-      prev_unit: event.target.previousUnit.value,
-      prev_city: event.target.previousCity.value,
-      prev_state_id: event.target.previousState.value,
-      prev_zip_code: event.target.previousZip.value,
       opt_in_email: medium === 'email',
-      opt_in_sms: true, // #fixme
+      opt_in_sms: false, // #fixme
       opt_in_volunteer: false,
       partner_opt_in_email: false,
       partner_opt_in_sms: false,
       partner_opt_in_volunteer: false
     }
+
+    const previousNameData = !nameChanged ? {} : {
+      prev_name_title: event.target.titlePrevious.value,
+      prev_first_name: event.target.firstNamePrevious.value,
+      prev_middle_name: '',
+      prev_last_name: event.target.lastNamePrevious.value,
+      prev_name_suffix: event.target.suffixPrevious.value
+    }
+
+    const mailingAddressData = !hasMailingAddress ? {} : {
+      mailing_address: event.target.mailingAddress.value,
+      mailing_unit: event.target.mailingUnit.value,
+      mailing_city: event.target.mailingCity.value,
+      mailing_state_id: event.target.mailingState.value,
+      mailing_zip_code: event.target.mailingZip.value
+    }
+
+    const previousAddressData = !hasPreviousRegistration ? {} : {
+      prev_address: event.target.previousAddress.value,
+      prev_unit: event.target.previousUnit.value,
+      prev_city: event.target.previousCity.value,
+      prev_state_id: event.target.previousState.value,
+      prev_zip_code: event.target.previousZip.value
+    }
+
+    const data = Object.assign(basicData, previousNameData, mailingAddressData, previousAddressData)
 
     const options = {
       method: "POST",
@@ -229,7 +241,7 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="citizen">
-                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen}/>
+                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} required />
                         I am a U.S. citizen
                       </label>
                     </div>
@@ -243,7 +255,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  <div className={!nameChanged && "hidden"}><Name type="Previous" /></div>
+                  {nameChanged && <Name type="Previous" />}
                   <Address type="Home" state={state} zip={zip} />
                   <div className="row">
                     <div className="col">
@@ -253,7 +265,7 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  <div className={!hasMailingAddress && "hidden"}><Address type="Mailing" state="" zip="" /></div>
+                  {hasMailingAddress && <Address type="Mailing" state="" zip="" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="previousRegistration">
@@ -262,24 +274,24 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  <div className={!hasPreviousRegistration && "hidden"}><Address type="Previous" state="" zip="" /></div>
+                  {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>
-                      <input id="birthDate" name="birthDate" type="date" onBlur={warnIfMinor} />
+                      <input id="birthDate" name="birthDate" type="date" onBlur={warnIfMinor} required />
                     </div>
                   </div>
                   <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
                   <div className="row">
                     <div className="col">
                       <label htmlFor="idNumber">ID Number</label>
-                      <input id="idNumber" name="idNumber" type="text" />
+                      <input id="idNumber" name="idNumber" type="text" required />
                     </div>
                   </div>
                   <div className="row">
                     <div className="col">
                       <label htmlFor="race">Race {!stateMailInfo.requires_race && "(optional but appreciated)"}</label>
-                      <select id="race" name="race">
+                      <select id="race" name="race" required={stateMailInfo.requires_race}>
                         <option></option>
                         <option value="Asian">Asian</option>
                         <option value="Black or African American">Black or African American</option>
@@ -293,8 +305,8 @@ export default function Home() {
                       </select>
                     </div>
                     <div className="col">
-                      <label htmlFor="party">Party</label>
-                      <select id="party" name="party">
+                      <label htmlFor="party">Party {!stateMailInfo.requires_party && "(optional)"}</label>
+                      <select id="party" name="party" required={stateMailInfo.requires_party}>
                         <option></option>
                         {stateMailInfo.party_list.map((party, index) => <option key={index} value={party}>{party}</option>)}
                         <option value={stateMailInfo.no_party_msg}>{stateMailInfo.no_party_msg}</option>
@@ -305,20 +317,20 @@ export default function Home() {
                     <div className="col">
                       <div>
                         <label htmlFor="printNow">
-                          <input type="radio" id="printNow" name="formMedium" value="print" onChange={chooseMedium} />
+                          <input type="radio" id="printNow" name="formMedium" value="print" onChange={chooseMedium} required />
                           I will print, sign, and mail my application now.
                         </label>
                       </div>
                       <div>
                         <label htmlFor="receiveByEmail">
-                          <input type="radio" id="receiveByEmail" name="formMedium" value="email" onChange={chooseMedium} />
+                          <input type="radio" id="receiveByEmail" name="formMedium" value="email" onChange={chooseMedium} required />
                           Email me my application. I will print, sign, and mail it ASAP.
                         </label>
                       </div>
                       {statePrintingAvailable &&
                         <div>
                           <label htmlFor="receiveByMail">
-                            <input type="radio" id="receiveByMail" name="formMedium" value="mail" onChange={chooseMedium} />
+                            <input type="radio" id="receiveByMail" name="formMedium" value="mail" onChange={chooseMedium} required />
                             I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
                           </label>
                         </div>
