@@ -178,11 +178,12 @@ export default function Home() {
       }
       const pdfCheck = await fetch("/api/rtv?url=" + result.pdfurl)
       const pdfCheckResult = await pdfCheck.text()
-      const pdfUrlRegex = /(?<=;URL=')(.*)(?='" \/>)/g
-      const foundPdfUrlArray = [...pdfCheckResult.matchAll(pdfUrlRegex)][0]
-      if (foundPdfUrlArray) {
+      const start = pdfCheckResult.indexOf('https://download.register.rockthevote.com/pdfs/')
+      const end = pdfCheckResult.indexOf('.pdf')
+      const pdfUrl = pdfCheckResult.slice(start, end + 4)
+      if (pdfUrl !== '') {
         setSubmitting(false)
-        window.location = foundPdfUrlArray[0]
+        window.location = pdfUrl
         break
       } else {
         await forSeconds(2)
