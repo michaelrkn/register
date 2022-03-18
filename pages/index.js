@@ -42,13 +42,7 @@ export default function Home() {
         },
         body: JSON.stringify(data)
       }
-      if (process.env.NODE_ENV === "production") {
-        fetch("https://register.rockthevote.com/api/v4/gregistrations.json", options)
-      } else {
-        const response = await fetch("https://cors-anywhere.herokuapp.com/https://register.rockthevote.com/api/v4/gregistrations.json", options)
-        const result = await response.json()
-        console.log(result)
-      }
+      fetch("/api/rtv?url=https://register.rockthevote.com/api/v4/gregistrations.json", options)
 
       router.push("/" + state + "?zip=" + zip)
     }

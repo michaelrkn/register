@@ -143,7 +143,6 @@ export default function Home() {
     }
 
     const data = Object.assign(basicData, previousNameData, mailingAddressData, previousAddressData)
-    console.log(data)
     const options = {
       method: "POST",
       headers: {
@@ -151,10 +150,8 @@ export default function Home() {
       },
       body: JSON.stringify(data)
     }
-
-    const url = "https://register.rockthevote.com/api/v4/registrations.json"
-    const fullUrl = process.env.NODE_ENV === "production" ? url : "https://cors-anywhere.herokuapp.com/" + url
-    const response = await fetch(fullUrl, options)
+    const url = "/api/rtv?url=https://register.rockthevote.com/api/v4/registrations.json"
+    const response = await fetch(url, options)
     if (response.ok) {
       if (medium === 'email') {
         setSubmitting(false)
@@ -179,7 +176,7 @@ export default function Home() {
         alert("We're sorry, something went wrong when generating your form. Please try again.")
         throw 'Waiting too long for RTV PDF'
       }
-      const pdfCheck = await fetch("https://cors-anywhere.herokuapp.com/" + result.pdfurl)
+      const pdfCheck = await fetch("/api/rtv?url=" + result.pdfurl)
       const pdfCheckResult = await pdfCheck.text()
       const pdfUrlRegex = /(?<=;URL=')(.*)(?='" \/>)/g
       const foundPdfUrlArray = [...pdfCheckResult.matchAll(pdfUrlRegex)][0]
