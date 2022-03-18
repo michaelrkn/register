@@ -36,7 +36,7 @@ export default function Address(props) {
         </div>
         <div className="col-4">
           <label htmlFor={type + "State"}>State</label>
-          <select id={type + "State"} name={type + "State"} defaultValue={props.state} required>
+          <select id={type + "State"} name={type + "State"} defaultValue={props.state} required disabled={props.type === 'Home'}>
             <option></option>
             <option value="Alabama">Alabama</option>
             <option value="Alaska">Alaska</option>
