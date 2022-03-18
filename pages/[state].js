@@ -7,6 +7,7 @@ import { useState } from 'react'
 import statesOnlineInfo from '../public/states-online-info'
 import statesMailInfo from '../public/states-mail-info'
 import statesPrintingAvailable from '../public/states-printing-available'
+import statesAbbreviationMap from '../public/states-abbreviation-map'
 import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
@@ -100,7 +101,7 @@ export default function Home() {
       home_address: event.target.homeAddress.value,
       home_unit: event.target.homeUnit.value,
       home_city: event.target.homeCity.value,
-      home_state_id: event.target.homeState.value,
+      home_state_id: statesAbbreviationMap[event.target.homeState.value],
       home_zip_code: event.target.homeZip.value,
       has_mailing_address: hasMailingAddress,
       race: event.target.race.value,
@@ -129,7 +130,7 @@ export default function Home() {
       mailing_address: event.target.mailingAddress.value,
       mailing_unit: event.target.mailingUnit.value,
       mailing_city: event.target.mailingCity.value,
-      mailing_state_id: event.target.mailingState.value,
+      mailing_state_id: statesAbbreviationMap[event.target.mailingState.value],
       mailing_zip_code: event.target.mailingZip.value
     }
 
@@ -137,12 +138,12 @@ export default function Home() {
       prev_address: event.target.previousAddress.value,
       prev_unit: event.target.previousUnit.value,
       prev_city: event.target.previousCity.value,
-      prev_state_id: event.target.previousState.value,
+      prev_state_id: statesAbbreviationMap[event.target.previousState.value],
       prev_zip_code: event.target.previousZip.value
     }
 
     const data = Object.assign(basicData, previousNameData, mailingAddressData, previousAddressData)
-
+    console.log(data)
     const options = {
       method: "POST",
       headers: {
