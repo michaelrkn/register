@@ -11,7 +11,7 @@ const handler = async (req, res) => {
   }
   try {
     const resProxy = await fetch(url, options)
-    res.status(200).send(resProxy.body)
+    res.status(resProxy.status).send(resProxy.body)
   } catch (error) {
     console.log(error)
     res.status(400).send(error.toString())
