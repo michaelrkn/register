@@ -1,4 +1,6 @@
-export default async (req, res) => {
+import { withSentry } from '@sentry/nextjs';
+
+const handler = async (req, res) => {
   const { url } = req.query
   const options = req.method === 'GET' ? {} : {
     method: req.method,
@@ -14,4 +16,6 @@ export default async (req, res) => {
     console.log(error)
     res.status(400).send(error.toString())
   }
-};
+}
+
+export default withSentry(handler);
