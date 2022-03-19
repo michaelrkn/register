@@ -154,8 +154,8 @@ export default function Home() {
     const response = await fetch(url, options)
     if (response.ok) {
       if (medium === 'email') {
-        setSubmitting(false)
         alert('Your form is being created and sent to ' + event.target.email.value + '. Please check your email and print, sign, and mail in your form ASAP.')
+        setSubmitting(false)
       } else {
         redirectToPdf(response)
       }
@@ -182,8 +182,8 @@ export default function Home() {
       const end = pdfCheckResult.indexOf('.pdf')
       const pdfUrl = pdfCheckResult.slice(start, end + 4)
       if (pdfUrl !== '') {
-        setSubmitting(false)
         window.location = pdfUrl
+        setSubmitting(false)
         break
       } else {
         await forSeconds(2)
