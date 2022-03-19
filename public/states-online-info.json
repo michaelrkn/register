@@ -14,7 +14,7 @@
   "Arizona": {
     "ovrAvailable": true,
     "ovrRequirements": "an Arizona driver's license or state ID",
-    "ovrLink": "https://servicearizona.com/VoterRegistration/register?execution=e2s2",
+    "ovrLink": "https://servicearizona.com/VoterRegistration/selectLanguage",
     "ovrNotes": ""
   },
   "Arkansas": {
@@ -31,14 +31,14 @@
   },
   "Colorado": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Colorado driver's license or state ID",
+    "ovrRequirements": "a Social Security Number or a Colorado driver's license or state ID",
     "ovrLink": "https://www.sos.state.co.us/voter/pages/pub/olvr/verifyNewVoter.xhtml",
     "ovrNotes": ""
   },
   "Connecticut": {
     "ovrAvailable": true,
     "ovrRequirements": "a Connecticut driver's license or state ID",
-    "ovrLink": "https://voterregistration.ct.gov/OLVR/",
+    "ovrLink": "https://voterregistration.ct.gov/",
     "ovrNotes": ""
   },
   "Delaware": {
@@ -80,14 +80,14 @@
   "Indiana": {
     "ovrAvailable": true,
     "ovrRequirements": "an Indiana driver's license or state ID",
-    "ovrLink": "https://indianavoters.in.gov/",
-    "ovrNotes": "Then, under \"REGISTER TO VOTE\", click \"Apply Now\"."
+    "ovrLink": "https://indianavoters.in.gov/OLVR/Registration/RegistrationEligibility",
+    "ovrNotes": ""
   },
   "Iowa": {
     "ovrAvailable": true,
     "ovrRequirements": "an Iowa driver's license or state ID",
     "ovrLink": "https://mymvd.iowadot.gov/VoterRegistration",
-    "ovrNotes": "Then scroll down to view the form."
+    "ovrNotes": "Then scroll down to the form."
   },
   "Kansas": {
     "ovrAvailable": true,
@@ -104,7 +104,7 @@
   "Louisiana": {
     "ovrAvailable": true,
     "ovrRequirements": "a Louisiana driver's license or state ID",
-    "ovrLink": "https://voterportal.sos.la.gov/VoterRegistration",
+    "ovrLink": "https://voterportal.sos.la.gov/VoterRegistration/Eligibility?isUpdate=False",
     "ovrNotes": ""
   },
   "Maine": {
@@ -115,7 +115,7 @@
   },
   "Maryland": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Maryland driver's license or state ID",
+    "ovrRequirements": "a Maryland driver's license, learner's permit, or state ID",
     "ovrLink": "https://voterservices.elections.maryland.gov/OnlineVoterRegistration/VoterType",
     "ovrNotes": ""
   },
@@ -133,7 +133,7 @@
   },
   "Minnesota": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Minnesota driver's license and state ID, and an email address.",
+    "ovrRequirements": "a Minnesota driver's license and state ID, and an email address",
     "ovrLink": "https://mnvotes.sos.state.mn.us/VoterRegistration/VoterRegistrationMain.aspx",
     "ovrNotes": "Then scroll down to view the form."
   },
@@ -146,7 +146,7 @@
   "Missouri": {
     "ovrAvailable": true,
     "ovrRequirements": "a phone, tablet, or other touchscreen device so you can sign your form on your screen",
-    "ovrLink": "https://www.sos.mo.gov/elections/goVoteMissouri/register.aspx",
+    "ovrLink": "https://s1.sos.mo.gov/elections/voterregistration/",
     "ovrNotes": ""
   },
   "Montana": {
@@ -164,7 +164,7 @@
   "Nevada": {
     "ovrAvailable": true,
     "ovrRequirements": "a Nevada driver's license or state ID",
-    "ovrLink": "https://www.registertovotenv.gov/SOSVoterServices/registration/step0.aspx",
+    "ovrLink": "https://registertovote.nv.gov/SOSVoterServices/Registration/Step0-a.aspx",
     "ovrNotes": ""
   },
   "New Hampshire": {
@@ -177,8 +177,8 @@
   },
   "New Jersey": {
     "ovrAvailable": true,
-    "ovrRequirements": "a New Jersey driver's license or state ID, or a phone, tablet, or other touchscreen device so you can sign your form on your screen",
-    "ovrLink": "https://voter.svrs.nj.gov/register/eligibility",
+    "ovrRequirements": "a New Jersey driver's license or state ID; or a phone, tablet, or other touchscreen to sign on your screen; or the ability to upload a photo of your signature",
+    "ovrLink": "https://voter.svrs.nj.gov/register/",
     "ovrNotes": ""
   },
   "New Mexico": {
@@ -189,7 +189,7 @@
   },
   "New York": {
     "ovrAvailable": true,
-    "ovrRequirements": "a New York driver's license or state ID with your current address",
+    "ovrRequirements": "a New York driver's license, permit, or state ID",
     "ovrLink": "https://voterreg.dmv.ny.gov/MotorVoter/",
     "ovrNotes": ""
   },
@@ -282,7 +282,7 @@
   "Washington, DC": {
     "ovrAvailable": true,
     "ovrRequirements": "",
-    "ovrLink": "https://forms.dc.gov/f/DC_Voter_Registration_Form",
+    "ovrLink": "https://vr.dcboe.org/213324797239968?agency_code=12",
     "ovrNotes": ""
   },
   "Washington": {
@@ -293,7 +293,7 @@
   },
   "West Virginia": {
     "ovrAvailable": true,
-    "ovrRequirements": "a West Virginia driver's license or state ID",
+    "ovrRequirements": "a West Virginia driver's license, permit, or state ID",
     "ovrLink": "https://ovr.sos.wv.gov/Register/Landing",
     "ovrNotes": ""
   },
