@@ -150,7 +150,7 @@ export default function Home() {
       },
       body: JSON.stringify(data)
     }
-    const url = "/api/rtv?url=https://register.rockthevote.com/api/v4/registrations.json"
+    const url = "/api/rtv?path=/api/v4/registrations.json"
     const response = await fetch(url, options)
     if (response.ok) {
       if (medium === 'email') {
@@ -176,7 +176,7 @@ export default function Home() {
         alert("We're sorry, something went wrong when generating your form. Please try again.")
         throw 'Waiting too long for RTV PDF'
       }
-      const pdfCheck = await fetch("/api/rtv?url=" + result.pdfurl)
+      const pdfCheck = await fetch("/api/rtv?path=" + result.pdfurl.replace("https://register.rockthevote.com", ""))
       const pdfCheckResult = await pdfCheck.text()
       const start = pdfCheckResult.indexOf('https://download.register.rockthevote.com/pdfs/')
       const end = pdfCheckResult.indexOf('.pdf')

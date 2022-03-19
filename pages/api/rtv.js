@@ -1,7 +1,7 @@
 import { withSentry } from '@sentry/nextjs';
 
 const handler = async (req, res) => {
-  const { url } = req.query
+  const { path } = req.query
   const options = req.method === 'GET' ? {} : {
     method: req.method,
     headers: {
@@ -10,8 +10,13 @@ const handler = async (req, res) => {
     body: JSON.stringify(req.body)
   }
   try {
-    const resProxy = await fetch(url, options)
-    res.status(resProxy.status).send(resProxy.body)
+    if (path) {
+      const url = 'https://register.rockthevote.com' + path
+      const resProxy = await fetch(url, options)
+      res.status(resProxy.status).send(resProxy.body)
+    } else {
+      res.status(400).send("Invalid path: " + path)
+    }
   } catch (error) {
     console.log(error)
     res.status(400).send(error.toString())

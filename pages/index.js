@@ -42,7 +42,7 @@ export default function Home() {
         },
         body: JSON.stringify(data)
       }
-      fetch("/api/rtv?url=https://register.rockthevote.com/api/v4/gregistrations.json", options)
+      fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
       router.push("/" + state + "?zip=" + zip)
     }
