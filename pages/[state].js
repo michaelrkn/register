@@ -12,7 +12,7 @@ import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
-  let { state, zip, email, phone, optIn } = router.query
+  let { state, zip, email, optIn } = router.query
   let age
 
   const [isCitizen, setCitizen] = useState(false)
@@ -106,11 +106,11 @@ export default function Home() {
       race: event.target.race.value,
       party: event.target.party.value,
       phone: phone,
-      phone_type: 'Mobile',
+      phone_type: '',
       change_of_name: nameChanged,
       change_of_address: hasPreviousRegistration,
-      opt_in_email: medium === 'email',
-      opt_in_sms: JSON.parse(optIn),
+      opt_in_email: JSON.parse(optIn) || medium === 'email',
+      opt_in_sms: false,
       opt_in_volunteer: false,
       partner_opt_in_email: false,
       partner_opt_in_sms: false,
@@ -339,7 +339,7 @@ export default function Home() {
                     <div className="row">
                       <div className="col">
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" required={medium === "email"} />
+                        <input type="text" id="email" name="email" defaultValue={email} required />
                       </div>
                     </div>
                   </div>

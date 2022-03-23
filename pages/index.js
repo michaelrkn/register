@@ -25,15 +25,13 @@ export default function Home() {
         partner_id: '1', // #fixme change to real value
         send_confirmation_reminder_emails: false,
         date_of_birth: '01-01-2000',
-        email_address: randomEmail,
+        email_address: event.target.email.value,
         home_zip_code: zip,
         us_citizen: true,
         name_title: 'Ms.',
         first_name: event.target.name.value.split(' ')[0],
         last_name: event.target.name.value.split(' ').pop(),
-        phone: event.target.cell.value,
-        phone_type: 'Mobile',
-        opt_in_sms: optIn
+        opt_in_email: optIn
       }
       const options = {
         method: "POST",
@@ -44,7 +42,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      router.push("/" + state + "?zip=" + zip + "&email=" + randomEmail + "&phone=" + event.target.cell.value + "&optIn=" + optIn)
+      router.push("/" + state + "?zip=" + zip + "&email=" + event.target.email.value + "&optIn=" + optIn)
     }
   }
 
@@ -74,14 +72,14 @@ export default function Home() {
           </p>
 
           <p>
-            <label htmlFor="cell">Cell Phone (numbers only)</label>
-            <input id="cell" name="cell" type="tel" maxLength="10" minLength="10" required />
+            <label htmlFor="email">Email</label>
+            <input id="email" name="email" type="email" required />
           </p>
 
           <p>
             <label htmlFor="optIn">
               <input id="optIn" name="optIn" type="checkbox" defaultChecked onChange={toggleOptIn} />
-              Text me my voting location, how to vote by mail, and other voting info
+              Send me my voting location, how to vote by mail, and other voting info
             </label>
           </p>
 
