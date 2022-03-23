@@ -12,7 +12,7 @@ import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
-  let { state, zip } = router.query
+  let { state, zip, email, phone, optIn } = router.query
   let age
 
   const [isCitizen, setCitizen] = useState(false)
@@ -78,7 +78,6 @@ export default function Home() {
     const birthDate = event.target.birthDate.value
     const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
     const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
-    const randomEmail = (Math.random() + 1).toString(36).substring(7) + '@example.com'
 
     const basicData = {
       lang: 'en',
@@ -88,7 +87,7 @@ export default function Home() {
       updated_at: now,
       date_of_birth: formattedBirthDate,
       id_number: event.target.idNumber.value,
-      email_address: event.target.email.value || randomEmail,
+      email_address: event.target.email.value || email,
       first_registration: !hasPreviousRegistration,
       us_citizen: isCitizen,
       has_state_license: false,
@@ -106,12 +105,12 @@ export default function Home() {
       has_mailing_address: hasMailingAddress,
       race: event.target.race.value,
       party: event.target.party.value,
-      phone: '', // #fixme
-      phone_type: '', // #fixme
+      phone: phone,
+      phone_type: 'Mobile',
       change_of_name: nameChanged,
       change_of_address: hasPreviousRegistration,
       opt_in_email: medium === 'email',
-      opt_in_sms: false, // #fixme
+      opt_in_sms: JSON.parse(optIn),
       opt_in_volunteer: false,
       partner_opt_in_email: false,
       partner_opt_in_sms: false,
@@ -340,7 +339,7 @@ export default function Home() {
                     <div className="row">
                       <div className="col">
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" />
+                        <input type="text" id="email" name="email" required={medium === "email"} />
                       </div>
                     </div>
                   </div>

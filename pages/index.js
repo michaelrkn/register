@@ -44,7 +44,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      router.push("/" + state + "?zip=" + zip)
+      router.push("/" + state + "?zip=" + zip + "&email=" + randomEmail + "&phone=" + event.target.cell.value + "&optIn=" + optIn)
     }
   }
 
