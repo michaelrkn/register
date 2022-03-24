@@ -12,6 +12,11 @@ export default function Home() {
     setOptIn(!optIn)
   }
 
+  const [isCitizen, setCitizen] = useState(false)
+  const toggleCitizen = () => {
+    setCitizen(!isCitizen)
+  }
+
   const createRegistrant = async (event) => {
     event.preventDefault()
 
@@ -31,7 +36,7 @@ export default function Home() {
         date_of_birth: formattedBirthDate,
         email_address: event.target.email.value,
         home_zip_code: zip,
-        us_citizen: true,
+        us_citizen: isCitizen,
         name_title: event.target.title.value,
         first_name: event.target.firstName.value,
         last_name: event.target.lastName.value,
@@ -47,7 +52,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      router.push(`/${state}?zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${formattedBirthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}`)
+      router.push(`/${state}?zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${formattedBirthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`)
     }
   }
 
@@ -62,12 +67,19 @@ export default function Home() {
 
       <p>If you&apos;re not sure you&apos;re registered, there&apos;s no harm in re-registering.</p>
 
-      <p>Fill out the form below, and based on your location, we&apos;ll tell you how to register.</p>
+      <p>Fill out the form below, and based on your information, we&apos;ll tell you how to register.</p>
 
       <form onSubmit={createRegistrant}>
         <fieldset>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="citizen">
+                <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} required />
+                I am a U.S. citizen
+              </label>
+            </div>
+          </div>
           <Name type="" />
-
           <div className="row">
             <div className="col">
               <label htmlFor="zip">Zip Code</label>

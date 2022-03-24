@@ -12,7 +12,7 @@ import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
-  let { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix } = router.query
+  let { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen } = router.query
   const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
 
   const calculateAge = (birthDateInput) => {
@@ -29,7 +29,7 @@ export default function Home() {
 
   const isMinor = calculateAge(birthDate) < 18
 
-  const [isCitizen, setCitizen] = useState(false)
+  const [isCitizen, setCitizen] = useState(citizen)
   const toggleCitizen = () => {
     setCitizen(!isCitizen)
   }
@@ -236,7 +236,7 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="citizen">
-                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} required />
+                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} checked={citizen} required />
                         I am a U.S. citizen
                       </label>
                     </div>
