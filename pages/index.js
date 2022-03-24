@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Name from '../components/name'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { zipToState } from '../lib/zip-to-state.js'
@@ -31,9 +32,10 @@ export default function Home() {
         email_address: event.target.email.value,
         home_zip_code: zip,
         us_citizen: true,
-        name_title: 'Ms.',
-        first_name: event.target.name.value.split(' ')[0],
-        last_name: event.target.name.value.split(' ').pop(),
+        name_title: event.target.title.value,
+        first_name: event.target.firstName.value,
+        last_name: event.target.lastName.value,
+        name_suffix: event.target.suffix.value,
         opt_in_email: optIn
       }
       const options = {
@@ -45,7 +47,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      router.push(`/${state}?zip=${zip}&email=${event.target.email.value}&optIn=${optIn}&birthDate=${formattedBirthDate}`)
+      router.push(`/${state}?zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${formattedBirthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}`)
     }
   }
 
@@ -64,34 +66,39 @@ export default function Home() {
 
       <form onSubmit={createRegistrant}>
         <fieldset>
-          <p>
-            <label htmlFor="name">Full Legal Name</label>
-            <input id="name" name="name" type="text" required />
-          </p>
+          <Name type="" />
 
-          <p>
-            <label htmlFor="zip">Zip Code</label>
-            <input id="zip" name="zip" type="tel" maxLength="5" minLength="5" required />
-          </p>
-
-          <p>
-            <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" required />
-          </p>
-
-          <p>
-            <label htmlFor="birthDate">Date of Birth</label>
-            <input id="birthDate" name="birthDate" type="date" required />
-          </p>
-
-          <p>
-            <label htmlFor="optIn">
-              <input id="optIn" name="optIn" type="checkbox" defaultChecked onChange={toggleOptIn} />
-              Send me my voting location, how to vote by mail, and other voting info
-            </label>
-          </p>
-
-          <p><button type="submit">Submit</button></p>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="zip">Zip Code</label>
+              <input id="zip" name="zip" type="tel" maxLength="5" minLength="5" required />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="email">Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="birthDate">Date of Birth</label>
+              <input id="birthDate" name="birthDate" type="date" required />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <label htmlFor="optIn">
+                <input id="optIn" name="optIn" type="checkbox" defaultChecked onChange={toggleOptIn} />
+                Send me my voting location, how to vote by mail, and other voting info
+              </label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <button type="submit">Submit</button>
+            </div>
+          </div>
         </fieldset>
       </form>
     </div>

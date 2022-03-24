@@ -12,7 +12,7 @@ import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
-  let { state, zip, email, optIn, birthDate } = router.query
+  let { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix } = router.query
   const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
 
   const calculateAge = (birthDateInput) => {
@@ -241,16 +241,6 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  <Name type="" />
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="previousName">
-                        <input id="previousName" name="previousName" type="checkbox" onChange={toggleNameChanged} />
-                        I have changed my name
-                      </label>
-                    </div>
-                  </div>
-                  {nameChanged && <Name type="Previous" />}
                   <Address type="Home" state={state} zip={zip} />
                   <div className="row">
                     <div className="col">
@@ -270,6 +260,16 @@ export default function Home() {
                     </div>
                   </div>
                   {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
+                  <Name type="" title={title} firstName={firstName} lastName={lastName} suffix={suffix} />
+                  <div className="row">
+                    <div className="col">
+                      <label htmlFor="previousName">
+                        <input id="previousName" name="previousName" type="checkbox" onChange={toggleNameChanged} />
+                        I have changed my name
+                      </label>
+                    </div>
+                  </div>
+                  {nameChanged && <Name type="Previous" />}
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>
