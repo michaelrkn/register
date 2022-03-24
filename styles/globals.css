@@ -39,3 +39,7 @@ label {
 .hidden {
   display: none;
 }
+
+.error {
+  background: yellow;
+}

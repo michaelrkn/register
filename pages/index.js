@@ -19,12 +19,15 @@ export default function Home() {
     if (state === undefined) {
       alert("Please enter a valid zip code.")
     } else {
-      const randomEmail = (Math.random() + 1).toString(36).substring(7) + '@example.com'
+      const birthDate = event.target.birthDate.value
+      const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
+      const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
+
       const data = {
         lang: 'en',
         partner_id: '1', // #fixme change to real value
         send_confirmation_reminder_emails: false,
-        date_of_birth: '01-01-2000',
+        date_of_birth: formattedBirthDate,
         email_address: event.target.email.value,
         home_zip_code: zip,
         us_citizen: true,
@@ -42,7 +45,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      router.push("/" + state + "?zip=" + zip + "&email=" + event.target.email.value + "&optIn=" + optIn)
+      router.push(`/${state}?zip=${zip}&email=${event.target.email.value}&optIn=${optIn}&birthDate=${formattedBirthDate}`)
     }
   }
 
@@ -74,6 +77,11 @@ export default function Home() {
           <p>
             <label htmlFor="email">Email</label>
             <input id="email" name="email" type="email" required />
+          </p>
+
+          <p>
+            <label htmlFor="birthDate">Date of Birth</label>
+            <input id="birthDate" name="birthDate" type="date" required />
           </p>
 
           <p>

@@ -12,8 +12,22 @@ import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
-  let { state, zip, email, optIn } = router.query
-  let age
+  let { state, zip, email, optIn, birthDate } = router.query
+  const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
+
+  const calculateAge = (birthDateInput) => {
+    const birthDate = new Date(birthDateInput)
+    const today = new Date()
+    const yearDifference = today.getFullYear() - birthDate.getFullYear()
+    const monthDifference = today.getMonth() - birthDate.getMonth()
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      return yearDifference - 1
+    } else {
+      return yearDifference
+    }
+  }
+
+  const isMinor = calculateAge(birthDate) < 18
 
   const [isCitizen, setCitizen] = useState(false)
   const toggleCitizen = () => {
@@ -31,25 +45,6 @@ export default function Home() {
   }
 
   const [submitting, setSubmitting] = useState(false)
-
-  const warnIfMinor = (event) => {
-    age = calculateAge(event.target.value)
-    if (age < 18) {
-      alert("In " + state + ", you can register to vote " + stateMailInfo.sub_18_msg + ".")
-    }
-  }
-
-  const calculateAge = (birthDateInput) => {
-    const birthDate = new Date(birthDateInput)
-    const today = new Date()
-    const yearDifference = today.getFullYear() - birthDate.getFullYear()
-    const monthDifference = today.getMonth() - birthDate.getMonth()
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      return yearDifference - 1
-    } else {
-      return yearDifference
-    }
-  }
 
   const [hasMailingAddress, setMailingAddress] = useState(false)
   const toggleMailingAddress = () => {
@@ -75,9 +70,6 @@ export default function Home() {
     setSubmitting(true)
 
     const now = generateTimestamp()
-    const birthDate = event.target.birthDate.value
-    const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
-    const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
 
     const basicData = {
       lang: 'en',
@@ -85,7 +77,7 @@ export default function Home() {
       send_confirmation_reminder_emails: medium === 'email',
       created_at: now,
       updated_at: now,
-      date_of_birth: formattedBirthDate,
+      date_of_birth: birthDate,
       id_number: event.target.idNumber.value,
       email_address: event.target.email.value || email,
       first_registration: !hasPreviousRegistration,
@@ -198,6 +190,11 @@ export default function Home() {
       </Head>
       {router.isReady &&
         <div>
+          {isMinor &&
+            <div className="card error">
+              In {state}, you can register to vote {stateMailInfo.sub_18_msg}.
+            </div>
+          }
           {stateOnlineInfo.specialCase &&
             <div>
               <h1>Register in {state}</h1>
@@ -276,7 +273,7 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>
-                      <input id="birthDate" name="birthDate" type="date" onBlur={warnIfMinor} required />
+                      <input id="birthDate" name="birthDate" type="date" defaultValue={birthDateInputValue} required />
                     </div>
                   </div>
                   <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
