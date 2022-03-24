@@ -29,7 +29,7 @@ export default function Home() {
 
   const isMinor = calculateAge(birthDate) < 18
 
-  const [isCitizen, setCitizen] = useState(citizen)
+  const [isCitizen, setCitizen] = useState(true)
   const toggleCitizen = () => {
     setCitizen(!isCitizen)
   }
@@ -83,7 +83,7 @@ export default function Home() {
       first_registration: !hasPreviousRegistration,
       us_citizen: isCitizen,
       has_state_license: false,
-      is_eighteen_or_older: age >= 18,
+      is_eighteen_or_older: !isMinor,
       name_title: event.target.title.value,
       first_name: event.target.firstName.value,
       middle_name: '',
@@ -97,7 +97,7 @@ export default function Home() {
       has_mailing_address: hasMailingAddress,
       race: event.target.race.value,
       party: event.target.party.value,
-      phone: phone,
+      phone: '',
       phone_type: '',
       change_of_name: nameChanged,
       change_of_address: hasPreviousRegistration,
@@ -236,7 +236,7 @@ export default function Home() {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="citizen">
-                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} checked={citizen} required />
+                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} checked={isCitizen} required />
                         I am a U.S. citizen
                       </label>
                     </div>
