@@ -6,7 +6,9 @@ import { zipToState } from '../lib/zip-to-state.js'
 
 export default function Home() {
   const router = useRouter()
-  const { partnerId } = router.query
+  const { partnerId, hideHeader } = router.query
+
+  const hideHeaderValue = hideHeader ? JSON.parse(hideHeader) : false
 
   const [optIn, setOptIn] = useState(true)
   const toggleOptIn = () => {
@@ -63,6 +65,10 @@ export default function Home() {
         <title>Register to Vote</title>
         <meta name="description" content="Register to vote" />
       </Head>
+
+      {!hideHeaderValue &&
+        <h1>Register To Vote</h1>
+      }
 
       <p>You need to register before you can vote. You need to register again if you&apos;ve moved.</p>
 
