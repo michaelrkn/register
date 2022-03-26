@@ -12,7 +12,7 @@ import { generateTimestamp } from '../lib/generate-timestamp'
 
 export default function Home() {
   const router = useRouter()
-  let { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen } = router.query
+  let { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = router.query
   const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
 
   const calculateAge = (birthDateInput) => {
@@ -73,7 +73,7 @@ export default function Home() {
 
     const basicData = {
       lang: 'en',
-      partner_id: '1',
+      partner_id: partnerId || '1',
       send_confirmation_reminder_emails: medium === 'email',
       created_at: now,
       updated_at: now,

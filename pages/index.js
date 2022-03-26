@@ -6,6 +6,7 @@ import { zipToState } from '../lib/zip-to-state.js'
 
 export default function Home() {
   const router = useRouter()
+  const { partnerId } = router.query
 
   const [optIn, setOptIn] = useState(true)
   const toggleOptIn = () => {
@@ -31,8 +32,8 @@ export default function Home() {
 
       const data = {
         lang: 'en',
-        partner_id: '1', // #fixme change to real value
-        send_confirmation_reminder_emails: false,
+        partner_id: partnerId || '1',
+        send_confirmation_reminder_emails: true,
         date_of_birth: formattedBirthDate,
         email_address: event.target.email.value,
         home_zip_code: zip,
@@ -52,7 +53,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      router.push(`/${state}?zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${formattedBirthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`)
+      router.push(`/${state}?zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${formattedBirthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}&partnerId=${partnerId}`)
     }
   }
 
