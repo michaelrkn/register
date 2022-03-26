@@ -213,7 +213,8 @@ export default function Home() {
 
               {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
 
-              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
+              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary is-large">Register Online Now</a></p>
+              <hr />
             </div>
           }
 
