@@ -6,8 +6,8 @@ export default function Address(props) {
 
   useEffect(() => {
     if (props.zip) {
-      if (process.env.NODE_ENV === "production") {
-        fetch("https://maps.googleapis.com/maps/api/geocode/json?key=" + process.env.NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY + "&address=" + props.zip)
+      if (process.env.NODE_ENV === "development") {
+        fetch("https://maps.googleapis.com/maps/api/geocode/json?language=en&key=" + process.env.NEXT_PUBLIC_GOOGLE_GEOCODING_API_KEY + "&address=" + props.zip)
         .then(response => response.json())
         .then(json => json.results[0].address_components[1].long_name)
         .then(city => setCity(city))
