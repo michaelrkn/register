@@ -10,10 +10,20 @@ import statesPrintingAvailable from '../public/states-printing-available'
 import statesAbbreviationMap from '../public/states-abbreviation-map'
 import { generateTimestamp } from '../lib/generate-timestamp'
 
-export default function Home() {
+export async function getServerSideProps(context) {
+  return {
+    props: context.params
+  }
+} // #fixme this is so we can know what state the page is for on the server side
+
+export default function Home(props) {
   const router = useRouter()
-  let { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = router.query
+  const { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = props
   const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
+
+  const stateOnlineInfo = statesOnlineInfo[state]
+  const stateMailInfo = statesMailInfo[state]
+  const statePrintingAvailable = statesPrintingAvailable[state]
 
   const calculateAge = (birthDateInput) => {
     const birthDate = new Date(birthDateInput)
@@ -56,13 +66,9 @@ export default function Home() {
     setPreviousRegistration(!hasPreviousRegistration)
   }
 
-  let stateOnlineInfo = {}
-  let stateMailInfo = {}
-  let statePrintingAvailable = {}
-  if (router.isReady) {
-    stateOnlineInfo = statesOnlineInfo[state]
-    stateMailInfo = statesMailInfo[state]
-    statePrintingAvailable = statesPrintingAvailable[state]
+  const [mailFormShowing, setMailFormShowing] = useState(!stateOnlineInfo.ovrAvailable && !stateOnlineInfo.specialCase)
+  const showMailForm = () => {
+    setMailFormShowing(true)
   }
 
   const generateApplication = async(event) => {
@@ -213,12 +219,18 @@ export default function Home() {
 
               {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
 
-              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary is-large">Register Online Now</a></p>
-              <hr />
+              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
+
+              {stateOnlineInfo.ovrRequirements
+                ? <p>Otherwise, you can register by mail.</p>
+                : <p>Or, if you prefer, you can register by mail.</p>
+              }
+
+              <p><button className="button secondary" onClick={showMailForm}>Register By Mail</button></p>
             </div>
           }
 
-          {!stateOnlineInfo.specialCase &&
+          {mailFormShowing &&
             <div>
               <h1>Register By Mail</h1>
               {!stateOnlineInfo.ovrAvailable &&

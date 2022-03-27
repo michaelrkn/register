@@ -3,7 +3,7 @@
 :root {
   --font-size: 1.8rem;
   --grid-maxWidth: 80rem;
-  --color-primary: #9013fe
+  --color-primary: #9013fe;
 }
 
 a {
@@ -44,7 +44,6 @@ label {
   background: yellow;
 }
 
-.button.is-large {
-  font-size: 1.4em;
-  padding: 1.8rem;
+.button.secondary {
+  background-color: #383381;
 }
