@@ -203,7 +203,7 @@ export default function Home(props) {
           }
           {stateOnlineInfo.specialCase &&
             <div>
-              <h1>Register in {state}</h1>
+              <h1>Register to Vote in {state}</h1>
               <p>{stateOnlineInfo.specialInstructions}</p>
             </div>
           }
