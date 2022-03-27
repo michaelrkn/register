@@ -14,6 +14,9 @@ const handler = async (req, res) => {
       const url = 'https://register.rockthevote.com' + path
       const resProxy = await fetch(url, options)
       res.status(resProxy.status).send(resProxy.body)
+      if (resProxy.status >= 500) {
+        throw new Error("Rock The Vote returned HTTP error code " + resProxy.status)
+      }
     } else {
       res.status(400).send("Invalid path: " + path)
     }
