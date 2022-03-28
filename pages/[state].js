@@ -14,11 +14,12 @@ export async function getServerSideProps(context) {
   return {
     props: context.params
   }
-} // #fixme this is so we can know what state the page is for on the server side
+} // #fixme this is so we can know what state the page is for on the server side but seems like a bad idea
 
 export default function Home(props) {
   const router = useRouter()
-  const { state, zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = props
+  const { state } = props
+  const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = router.query
   const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
 
   const stateOnlineInfo = statesOnlineInfo[state]
