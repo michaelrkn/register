@@ -66,7 +66,7 @@ export default function Home(props) {
     setPreviousRegistration(!hasPreviousRegistration)
   }
 
-  const [mailFormShowing, setMailFormShowing] = useState(!stateOnlineInfo.ovrAvailable && !stateOnlineInfo.specialCase)
+  const [mailFormShowing, setMailFormShowing] = useState(!stateOnlineInfo.specialCase && !stateOnlineInfo.ovrAvailable)
   const showMailForm = () => {
     setMailFormShowing(true)
   }
