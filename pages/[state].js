@@ -20,7 +20,6 @@ export default function Home(props) {
   const router = useRouter()
   const { state } = props
   const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = router.query
-  const birthDateInputValue = birthDate ? birthDate.slice(6) + "-" + birthDate.slice(0,5) : ''
 
   const stateOnlineInfo = statesOnlineInfo[state]
   const stateMailInfo = statesMailInfo[state]
@@ -78,13 +77,17 @@ export default function Home(props) {
 
     const now = generateTimestamp()
 
+    const birthDate = event.target.birthDate.value
+    const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
+    const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
+
     const basicData = {
       lang: 'en',
       partner_id: partnerId || '1',
       send_confirmation_reminder_emails: medium === 'email',
       created_at: now,
       updated_at: now,
-      date_of_birth: birthDate,
+      date_of_birth: formattedBirthDate,
       id_number: event.target.idNumber.value,
       email_address: event.target.email.value || email,
       first_registration: !hasPreviousRegistration,
@@ -287,7 +290,7 @@ export default function Home(props) {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="birthDate">Date of Birth</label>
-                      <input id="birthDate" name="birthDate" type="date" defaultValue={birthDateInputValue} required />
+                      <input id="birthDate" name="birthDate" type="date" defaultValue={birthDate} required />
                     </div>
                   </div>
                   <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
