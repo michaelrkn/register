@@ -1,7 +1,7 @@
 {
   "Alabama": {
     "ovrAvailable": true,
-    "ovrRequirements": "an Alabama driver's license or state ID",
+    "ovrRequirements": "an Alabama driver's license or Non-Driver's Identification card",
     "ovrLink": "https://www.alabamainteractive.org/sos/voter_registration/instructions.action",
     "ovrNotes": ""
   },
@@ -13,7 +13,7 @@
   },
   "Arizona": {
     "ovrAvailable": true,
-    "ovrRequirements": "an Arizona driver's license or state ID",
+    "ovrRequirements": "an Arizona driver license or non-operating identification license",
     "ovrLink": "https://servicearizona.com/VoterRegistration/selectLanguage",
     "ovrNotes": ""
   },
@@ -31,13 +31,13 @@
   },
   "Colorado": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Social Security Number or a Colorado driver's license or state ID",
+    "ovrRequirements": "a Social Security Number or a Colorado driver's license or ID card",
     "ovrLink": "https://www.sos.state.co.us/voter/pages/pub/olvr/verifyNewVoter.xhtml",
     "ovrNotes": ""
   },
   "Connecticut": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Connecticut driver's license or state ID",
+    "ovrRequirements": "a Connecticut driver's license, learner's permit, or non-driver photo identification card issued by the CT DMV and a signature on file",
     "ovrLink": "https://voterregistration.ct.gov/",
     "ovrNotes": ""
   },
@@ -49,25 +49,25 @@
   },
   "Florida": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Florida driver's license or state ID",
+    "ovrRequirements": "a Florida driver's license or Florida ID card issued by the Florida Department of Highway Safety & Motor Vehicles",
     "ovrLink": "https://registertovoteflorida.gov/eligibilityreactive",
     "ovrNotes": ""
   },
   "Georgia": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Georgia driver's license or state ID",
+    "ovrRequirements": "driver's license or identification card issued by GA Department of Driver Services with signature on file",
     "ovrLink": "https://registertovote.sos.ga.gov/",
     "ovrNotes": "Then click \"I Want to Register to Vote!\""
   },
   "Hawaii": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Hawaii driver's license or state ID",
+    "ovrRequirements": "Hawaii Driver's License or State ID card",
     "ovrLink": "https://olvr.hawaii.gov/register.aspx",
     "ovrNotes": ""
   },
   "Idaho": {
     "ovrAvailable": true,
-    "ovrRequirements": "an Idaho driver's license or state ID",
+    "ovrRequirements": "an Idaho driver's license or ID card",
     "ovrLink": "https://elections.sos.idaho.gov/ElectionLink/ElectionLink/ApplicationInstructions.aspx",
     "ovrNotes": ""
   },
@@ -91,7 +91,7 @@
   },
   "Kansas": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Kansas driver's license or state ID",
+    "ovrRequirements": "a Kansas driver's license or nondriver's identification card",
     "ovrLink": "https://www.kdor.ks.gov/Apps/VoterReg/secure/default.aspx",
     "ovrNotes": ""
   },
@@ -103,7 +103,7 @@
   },
   "Louisiana": {
     "ovrAvailable": true,
-    "ovrRequirements": "a Louisiana driver's license or state ID",
+    "ovrRequirements": "a Louisiana driver's license or special ID card",
     "ovrLink": "https://voterportal.sos.la.gov/VoterRegistration/Eligibility?isUpdate=False",
     "ovrNotes": ""
   },
