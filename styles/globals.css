@@ -40,7 +40,7 @@ label {
   display: none;
 }
 
-.error {
+.warn {
   background: yellow;
 }
 

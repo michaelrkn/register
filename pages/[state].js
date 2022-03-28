@@ -201,7 +201,7 @@ export default function Home(props) {
       {router.isReady &&
         <div>
           {isMinor &&
-            <div className="card error">
+            <div className="card warn">
               In {state}, you can register to vote {stateMailInfo.sub_18_msg}.
             </div>
           }
