@@ -57,7 +57,7 @@ export default function Home() {
 
       const userQueryParams = `zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${birthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`
       const queryParams = partnerId ? userQueryParams + `&partnerId=${partnerId}` : userQueryParams
-      router.push(`/${state}?` + queryParams)
+      router.push(`/s/${state}?` + queryParams)
     }
   }
 

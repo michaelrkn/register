@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Address from '../components/address'
-import Name from '../components/name'
+import Address from '../../components/address'
+import Name from '../../components/name'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import statesOnlineInfo from '../public/states-online-info'
-import statesMailInfo from '../public/states-mail-info'
-import statesPrintingAvailable from '../public/states-printing-available'
-import statesAbbreviationMap from '../public/states-abbreviation-map'
-import { generateTimestamp } from '../lib/generate-timestamp'
+import statesOnlineInfo from '../../public/states-online-info'
+import statesMailInfo from '../../public/states-mail-info'
+import statesPrintingAvailable from '../../public/states-printing-available'
+import statesAbbreviationMap from '../../public/states-abbreviation-map'
+import { generateTimestamp } from '../../lib/generate-timestamp'
 
 export async function getServerSideProps(context) {
   return {
