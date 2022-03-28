@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
   const router = useRouter()
   const { state } = props
-  const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId } = router.query
+  const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId, source } = router.query
 
   const stateOnlineInfo = statesOnlineInfo[state]
   const stateMailInfo = statesMailInfo[state]
@@ -116,7 +116,8 @@ export default function Home(props) {
       opt_in_volunteer: false,
       partner_opt_in_email: false,
       partner_opt_in_sms: false,
-      partner_opt_in_volunteer: false
+      partner_opt_in_volunteer: false,
+      source_tracking_id: source
     }
 
     const previousNameData = !nameChanged ? {} : {

@@ -6,7 +6,7 @@ import { zipToState } from '../lib/zip-to-state.js'
 
 export default function Home() {
   const router = useRouter()
-  const { partnerId, hideHeader } = router.query
+  const { partnerId, source, hideHeader } = router.query
 
   const hideHeaderValue = hideHeader ? JSON.parse(hideHeader) : false
 
@@ -44,7 +44,8 @@ export default function Home() {
         first_name: event.target.firstName.value,
         last_name: event.target.lastName.value,
         name_suffix: event.target.suffix.value,
-        opt_in_email: optIn
+        opt_in_email: optIn,
+        source_tracking_id: source
       }
       const options = {
         method: "POST",
@@ -56,8 +57,9 @@ export default function Home() {
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
       const userQueryParams = `zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${birthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`
-      const queryParams = partnerId ? userQueryParams + `&partnerId=${partnerId}` : userQueryParams
-      router.push(`/s/${state}?` + queryParams)
+      const queryParamsWithPartner = partnerId ? userQueryParamsWithPartner + `&partnerId=${partnerId}` : userQueryParams
+      const queryParamsWithSource = source ? queryParamsWithPartner + `&source=${source}` : queryParamsWithPartner
+      router.push(`/s/${state}?` + queryParamsWithSource)
     }
   }
 
