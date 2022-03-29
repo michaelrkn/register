@@ -57,7 +57,7 @@ export default function Home() {
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
       const userQueryParams = `zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${birthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`
-      const queryParamsWithPartner = partnerId ? userQueryParamsWithPartner + `&partnerId=${partnerId}` : userQueryParams
+      const queryParamsWithPartner = partnerId ? userQueryParams + `&partnerId=${partnerId}` : userQueryParams
       const queryParamsWithSource = source ? queryParamsWithPartner + `&source=${source}` : queryParamsWithPartner
       router.push(`/s/${state}?` + queryParamsWithSource)
     }
