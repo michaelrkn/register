@@ -8,7 +8,7 @@ import statesOnlineInfo from '../../public/states-online-info'
 import statesMailInfo from '../../public/states-mail-info'
 import statesPrintingAvailable from '../../public/states-printing-available'
 import statesAbbreviationMap from '../../public/states-abbreviation-map'
-import { generateTimestamp } from '../../lib/generate-timestamp'
+import { generateTimestamp, calculateAge, formatBirthDate } from '../../lib/time-tools'
 
 export async function getServerSideProps(context) {
   return {
@@ -24,19 +24,6 @@ export default function Home(props) {
   const stateOnlineInfo = statesOnlineInfo[state]
   const stateMailInfo = statesMailInfo[state]
   const statePrintingAvailable = statesPrintingAvailable[state]
-
-  const calculateAge = (birthDateInput) => {
-    const birthDate = new Date(birthDateInput)
-    const today = new Date()
-    const yearDifference = today.getFullYear() - birthDate.getFullYear()
-    const monthDifference = today.getMonth() - birthDate.getMonth()
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      return yearDifference - 1
-    } else {
-      return yearDifference
-    }
-  }
-
   const isMinor = calculateAge(birthDate) < 18
 
   const [isCitizen, setCitizen] = useState(true)
@@ -71,15 +58,37 @@ export default function Home(props) {
     setMailFormShowing(true)
   }
 
+  const registerOnline = async() => {
+    const data = {
+      lang: 'en',
+      partner_id: partnerId || '1',
+      send_confirmation_reminder_emails: true,
+      date_of_birth: formatBirthDate(birthDate),
+      email_address: email,
+      home_zip_code: zip,
+      us_citizen: isCitizen,
+      name_title: title,
+      first_name: firstName,
+      last_name: lastName,
+      name_suffix: suffix,
+      opt_in_email: optIn,
+      source_tracking_id: source
+    }
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }
+    fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
+  }
+
   const generateApplication = async(event) => {
     event.preventDefault()
     setSubmitting(true)
 
     const now = generateTimestamp()
-
-    const birthDate = event.target.birthDate.value
-    const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
-    const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
 
     const basicData = {
       lang: 'en',
@@ -87,13 +96,13 @@ export default function Home(props) {
       send_confirmation_reminder_emails: medium === 'email',
       created_at: now,
       updated_at: now,
-      date_of_birth: formattedBirthDate,
+      date_of_birth: formatBirthDate(event.target.birthDate.value),
       id_number: event.target.idNumber.value,
       email_address: event.target.email.value || email,
       first_registration: !hasPreviousRegistration,
       us_citizen: isCitizen,
       has_state_license: false,
-      is_eighteen_or_older: !isMinor,
+      is_eighteen_or_older: calculateAge(birthDate) >= 18,
       name_title: event.target.title.value,
       first_name: event.target.firstName.value,
       middle_name: '',
@@ -224,7 +233,7 @@ export default function Home(props) {
 
               {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
 
-              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary">Register Online</a></p>
+              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary" onClick={registerOnline}>Register Online</a></p>
 
               {stateOnlineInfo.ovrRequirements
                 ? <p>Otherwise, you can register by mail.</p>

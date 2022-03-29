@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Name from '../components/name'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { zipToState } from '../lib/zip-to-state.js'
+import { zipToState } from '../lib/zip-to-state'
+import { formatBirthDate } from '../lib/time-tools'
 
 export default function Home() {
   const router = useRouter()
@@ -28,14 +29,12 @@ export default function Home() {
     if (state === undefined) {
       alert("Please enter a valid zip code.")
     } else {
-      const birthDate = event.target.birthDate.value
-      const [birthYear, birthMonth, birthDateDays] = birthDate.split('-')
-      const formattedBirthDate = birthMonth + '-' + birthDateDays + '-' + birthYear
+      const formattedBirthDate = formatBirthDate(event.target.birthDate.value)
 
       const data = {
         lang: 'en',
         partner_id: partnerId || '1',
-        send_confirmation_reminder_emails: true,
+        send_confirmation_reminder_emails: false,
         date_of_birth: formattedBirthDate,
         email_address: event.target.email.value,
         home_zip_code: zip,
@@ -56,7 +55,7 @@ export default function Home() {
       }
       fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
 
-      const userQueryParams = `zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${birthDate}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`
+      const userQueryParams = `zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${event.target.birthDate.value}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`
       const queryParamsWithPartner = partnerId ? userQueryParams + `&partnerId=${partnerId}` : userQueryParams
       const queryParamsWithSource = source ? queryParamsWithPartner + `&source=${source}` : queryParamsWithPartner
       router.push(`/s/${state}?` + queryParamsWithSource)
