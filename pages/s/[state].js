@@ -208,183 +208,181 @@ export default function Home(props) {
         <title>Register to Vote in {state}</title>
         <meta name="description" content="Register to vote in {state}" />
       </Head>
-      {router.isReady &&
-        <div>
-          {isMinor &&
-            <div className="card warn">
-              In {state}, you can register to vote {stateMailInfo.sub_18_msg}.
-            </div>
-          }
-          {stateOnlineInfo.specialCase &&
-            <div>
-              <h1>Register to Vote in {state}</h1>
-              <p>{stateOnlineInfo.specialInstructions}</p>
-            </div>
-          }
+      <div>
+        {isMinor &&
+          <div className="card warn">
+            In {state}, you can register to vote {stateMailInfo.sub_18_msg}.
+          </div>
+        }
+        {stateOnlineInfo.specialCase &&
+          <div>
+            <h1>Register to Vote in {state}</h1>
+            <p>{stateOnlineInfo.specialInstructions}</p>
+          </div>
+        }
 
-          {stateOnlineInfo.ovrAvailable &&
-            <div>
-              <h1>Register Online</h1>
+        {stateOnlineInfo.ovrAvailable &&
+          <div>
+            <h1>Register Online</h1>
 
-              {stateOnlineInfo.ovrRequirements
-                ? <p>If you have {stateOnlineInfo.ovrRequirements}, you can register online with the state.</p>
-                : <p>Any {state} resident can register to vote online.</p>
+            {stateOnlineInfo.ovrRequirements
+              ? <p>If you have {stateOnlineInfo.ovrRequirements}, you can register online with the state.</p>
+              : <p>Any {state} resident can register to vote online.</p>
+            }
+
+            {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
+
+            <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary" onClick={registerOnline}>Register Online</a></p>
+
+            {stateOnlineInfo.ovrRequirements
+              ? <p>Otherwise, you can register by mail.</p>
+              : <p>Or, if you prefer, you can register by mail.</p>
+            }
+
+            <p><button className="button secondary" onClick={showMailForm}>Register By Mail</button></p>
+          </div>
+        }
+
+        {mailFormShowing &&
+          <div>
+            <h1>Register By Mail</h1>
+            {!stateOnlineInfo.ovrAvailable &&
+              <p>{state} does not have online voter registration, so you must register by mail (or in person).</p>
+            }
+            <ol>
+              <li>Fill out the form below.</li>
+              {statePrintingAvailable
+                ? <li>Either you can print it, or we can print it and mail it to you.</li>
+                : <li>Print it out.</li>
               }
-
-              {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
-
-              <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary" onClick={registerOnline}>Register Online</a></p>
-
-              {stateOnlineInfo.ovrRequirements
-                ? <p>Otherwise, you can register by mail.</p>
-                : <p>Or, if you prefer, you can register by mail.</p>
-              }
-
-              <p><button className="button secondary" onClick={showMailForm}>Register By Mail</button></p>
-            </div>
-          }
-
-          {mailFormShowing &&
-            <div>
-              <h1>Register By Mail</h1>
-              {!stateOnlineInfo.ovrAvailable &&
-                <p>{state} does not have online voter registration, so you must register by mail (or in person).</p>
-              }
-              <ol>
-                <li>Fill out the form below.</li>
-                {statePrintingAvailable
-                  ? <li>Either you can print it, or we can print it and mail it to you.</li>
-                  : <li>Print it out.</li>
-                }
-                <li>Sign it and mail it in.</li>
-              </ol>
-              <form onSubmit={generateApplication}>
-                <fieldset>
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="citizen">
-                        <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} checked={isCitizen} required />
-                        I am a U.S. citizen
+              <li>Sign it and mail it in.</li>
+            </ol>
+            <form onSubmit={generateApplication}>
+              <fieldset>
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="citizen">
+                      <input id="citizen" name="citizen" type="checkbox" onChange={toggleCitizen} checked={isCitizen} required />
+                      I am a U.S. citizen
+                    </label>
+                  </div>
+                </div>
+                <Address type="Home" state={state} zip={zip} />
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="hasMailingAddress">
+                      <input id="hasMailingAddress" name="hasMailingAddress" type="checkbox" onChange={toggleMailingAddress} />
+                      I get mail at a different address
+                    </label>
+                  </div>
+                </div>
+                {hasMailingAddress && <Address type="Mailing" state="" zip="" />}
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="previousRegistration">
+                      <input id="previousRegistration" name="previousRegistration" type="checkbox" onChange={togglePreviousRegistration} />
+                      I previously registered at a different address
+                    </label>
+                  </div>
+                </div>
+                {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
+                <Name type="" title={title} firstName={firstName} lastName={lastName} suffix={suffix} />
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="previousName">
+                      <input id="previousName" name="previousName" type="checkbox" onChange={toggleNameChanged} />
+                      I have changed my name
+                    </label>
+                  </div>
+                </div>
+                {nameChanged && <Name type="Previous" />}
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="birthDate">Date of Birth</label>
+                    <input id="birthDate" name="birthDate" type="date" defaultValue={birthDate} required />
+                  </div>
+                </div>
+                <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="idNumber">ID Number</label>
+                    <input id="idNumber" name="idNumber" type="text" required />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <label htmlFor="race">Race {!stateMailInfo.requires_race && "(optional but appreciated)"}</label>
+                    <select id="race" name="race" required={stateMailInfo.requires_race}>
+                      <option></option>
+                      <option value="Asian">Asian</option>
+                      <option value="Black or African American">Black or African American</option>
+                      <option value="Hispanic or Latino">Hispanic or Latino</option>
+                      <option value="Native American or Alaskan Native">Native American or Alaskan Native</option>
+                      <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                      <option value="Other">Other</option>
+                      <option value="Two or More Races">Two or More Races</option>
+                      <option value="White">White</option>
+                      <option value="Decline to State">Decline to State</option>
+                    </select>
+                  </div>
+                  <div className="col">
+                    <label htmlFor="party">Party {!stateMailInfo.requires_party && "(optional)"}</label>
+                    <select id="party" name="party" required={stateMailInfo.requires_party}>
+                      <option></option>
+                      {stateMailInfo.party_list.map((party, index) => <option key={index} value={party}>{party}</option>)}
+                      <option value={stateMailInfo.no_party_msg}>{stateMailInfo.no_party_msg}</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div>
+                      <label htmlFor="printNow">
+                        <input type="radio" id="printNow" name="formMedium" value="print" onChange={chooseMedium} required />
+                        I will print, sign, and mail my application now.
                       </label>
                     </div>
-                  </div>
-                  <Address type="Home" state={state} zip={zip} />
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="hasMailingAddress">
-                        <input id="hasMailingAddress" name="hasMailingAddress" type="checkbox" onChange={toggleMailingAddress} />
-                        I get mail at a different address
+                    <div>
+                      <label htmlFor="receiveByEmail">
+                        <input type="radio" id="receiveByEmail" name="formMedium" value="email" onChange={chooseMedium} required />
+                        Email me my application. I will print, sign, and mail it ASAP.
                       </label>
                     </div>
-                  </div>
-                  {hasMailingAddress && <Address type="Mailing" state="" zip="" />}
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="previousRegistration">
-                        <input id="previousRegistration" name="previousRegistration" type="checkbox" onChange={togglePreviousRegistration} />
-                        I previously registered at a different address
-                      </label>
-                    </div>
-                  </div>
-                  {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
-                  <Name type="" title={title} firstName={firstName} lastName={lastName} suffix={suffix} />
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="previousName">
-                        <input id="previousName" name="previousName" type="checkbox" onChange={toggleNameChanged} />
-                        I have changed my name
-                      </label>
-                    </div>
-                  </div>
-                  {nameChanged && <Name type="Previous" />}
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="birthDate">Date of Birth</label>
-                      <input id="birthDate" name="birthDate" type="date" defaultValue={birthDate} required />
-                    </div>
-                  </div>
-                  <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="idNumber">ID Number</label>
-                      <input id="idNumber" name="idNumber" type="text" required />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">
-                      <label htmlFor="race">Race {!stateMailInfo.requires_race && "(optional but appreciated)"}</label>
-                      <select id="race" name="race" required={stateMailInfo.requires_race}>
-                        <option></option>
-                        <option value="Asian">Asian</option>
-                        <option value="Black or African American">Black or African American</option>
-                        <option value="Hispanic or Latino">Hispanic or Latino</option>
-                        <option value="Native American or Alaskan Native">Native American or Alaskan Native</option>
-                        <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
-                        <option value="Other">Other</option>
-                        <option value="Two or More Races">Two or More Races</option>
-                        <option value="White">White</option>
-                        <option value="Decline to State">Decline to State</option>
-                      </select>
-                    </div>
-                    <div className="col">
-                      <label htmlFor="party">Party {!stateMailInfo.requires_party && "(optional)"}</label>
-                      <select id="party" name="party" required={stateMailInfo.requires_party}>
-                        <option></option>
-                        {stateMailInfo.party_list.map((party, index) => <option key={index} value={party}>{party}</option>)}
-                        <option value={stateMailInfo.no_party_msg}>{stateMailInfo.no_party_msg}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">
+                    {statePrintingAvailable &&
                       <div>
-                        <label htmlFor="printNow">
-                          <input type="radio" id="printNow" name="formMedium" value="print" onChange={chooseMedium} required />
-                          I will print, sign, and mail my application now.
+                        <label htmlFor="receiveByMail">
+                          <input type="radio" id="receiveByMail" name="formMedium" value="mail" onChange={chooseMedium} required />
+                          I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
                         </label>
                       </div>
-                      <div>
-                        <label htmlFor="receiveByEmail">
-                          <input type="radio" id="receiveByEmail" name="formMedium" value="email" onChange={chooseMedium} required />
-                          Email me my application. I will print, sign, and mail it ASAP.
-                        </label>
-                      </div>
-                      {statePrintingAvailable &&
-                        <div>
-                          <label htmlFor="receiveByMail">
-                            <input type="radio" id="receiveByMail" name="formMedium" value="mail" onChange={chooseMedium} required />
-                            I don&apos;t have a printer. Print the form and mail it to me. Then I will sign and mail it in.
-                          </label>
-                        </div>
+                    }
+                  </div>
+                </div>
+                <div className={medium !== "email" ? "hidden" : ""}>
+                  <div className="row">
+                    <div className="col">
+                      <label htmlFor="email">Email</label>
+                      <input type="text" id="email" name="email" defaultValue={email} required />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <button type="submit" disabled={submitting}>
+                      {!submitting
+                        ? <span>Prepare My Application</span>
+                        : <span>One moment...</span>
                       }
-                    </div>
+                    </button>
                   </div>
-                  <div className={medium !== "email" ? "hidden" : ""}>
-                    <div className="row">
-                      <div className="col">
-                        <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" defaultValue={email} required />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">
-                      <button type="submit" disabled={submitting}>
-                        {!submitting
-                          ? <span>Prepare My Application</span>
-                          : <span>One moment...</span>
-                        }
-                      </button>
-                    </div>
-                  </div>
-                </fieldset>
-              </form>
-            </div>
-          }
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        }
 
-          <p><Link href="/"><a>Start over</a></Link></p>
-        </div>
-      }
+        <p><Link href="/"><a>Start over</a></Link></p>
+      </div>
     </div>
   )
 }
