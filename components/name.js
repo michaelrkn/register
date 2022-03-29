@@ -10,7 +10,7 @@ export default function Name(props) {
             <option value="Mr.">Mr.</option>
             <option value="Ms.">Ms.</option>
             <option value="Mrs.">Mrs.</option>
-            <option value="Miss”">Miss</option>
+            <option value="Miss">Miss</option>
           </select>
         </div>
         <div className="col">
