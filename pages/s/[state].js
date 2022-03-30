@@ -339,7 +339,7 @@ export default function Home(props) {
                     <div>
                       <label htmlFor="printNow">
                         <input type="radio" id="printNow" name="formMedium" value="print" onChange={chooseMedium} required />
-                        I will print, sign, and mail my application now.
+                        I can print from this device. I will print, sign, and mail my application now.
                       </label>
                     </div>
                     <div>
