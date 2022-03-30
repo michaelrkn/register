@@ -2,27 +2,23 @@ import { withSentry } from '@sentry/nextjs';
 
 const handler = async (req, res) => {
   const { path } = req.query
-  const options = req.method === 'GET' ? {} : {
-    method: req.method,
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(req.body)
-  }
-  try {
-    if (path) {
-      const url = 'https://register.rockthevote.com' + path
-      const resProxy = await fetch(url, options)
-      res.status(resProxy.status).send(resProxy.body)
-      if (resProxy.status >= 500) {
-        throw new Error("Rock The Vote returned HTTP error code " + resProxy.status)
-      }
-    } else {
-      res.status(400).send("Invalid path: " + path)
+  if (path) {
+    const options = req.method === 'GET' ? {} : {
+      method: req.method,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(req.body)
     }
-  } catch (error) {
-    console.log(error)
-    res.status(400).send(error.toString())
+    const url = 'https://register.rockthevote.com' + path
+    const response = await fetch(url, options)
+    res.status(response.status).send(response.body)
+    if (!response.ok) {
+      const body = await response.text()
+      throw new Error("Rock The Vote returned HTTP error code " + response.status + ": " + body) // #fixme this causes a 500 after the response is already returned, which leads to "Cannot set headers after they are sent to the client"
+    }
+  } else {
+    res.status(400).send("Invalid path: " + path)
   }
 }
 
