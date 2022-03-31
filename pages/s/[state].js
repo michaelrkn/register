@@ -390,7 +390,7 @@ export default function Home(props) {
           </div>
         }
 
-        <p><Link href="/"><a>Start over</a></Link></p>
+        <p><Link href={ partnerId ? '/?partnerId=' + partnerId : '/'}><a>Start over</a></Link></p>
       </div>
     </div>
   )
