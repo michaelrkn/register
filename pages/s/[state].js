@@ -173,8 +173,17 @@ export default function Home(props) {
     } else {
       setSubmitting(false)
       const error = await response.text()
-      alert(error)
+      if (isInvalidIdError(error)) {
+        alert('The ID number you entered is invalid.')
+      } else {
+        alert(error)
+      }
     }
+  }
+
+  const isInvalidIdError = (message) => {
+    return message === '{"field_name":"state_id_number","message":"ID Number is invalid."}' ||
+    message === '{"field_name":"state_id_number","message":"Numero ng ID ay hindi valid."}'
   }
 
   const redirectToPdf = async (response) => {
