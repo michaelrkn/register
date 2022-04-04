@@ -83,7 +83,7 @@ export default function Home(props) {
       body: JSON.stringify(data)
     }
     fetch("/api/rtv?path=/api/v4/gregistrations.json", options)
-    window.postMessage('ovrButtonClicked', window.parent)
+    window.parent.postMessage('ovrButtonClicked', '*')
   }
 
   const generateApplication = async(event) => {
@@ -166,7 +166,7 @@ export default function Home(props) {
     const url = "/api/rtv?path=/api/v4/registrations.json"
     const response = await fetch(url, options)
     if (response.ok) {
-      window.postMessage('mailFormSubmitted', '*')
+      window.parent.postMessage('mailFormSubmitted', '*')
       if (medium === 'email') {
         alert('Your form is being created and sent to ' + event.target.email.value + '. Please check your email and print, sign, and mail in your form ASAP.')
         setSubmitting(false)
