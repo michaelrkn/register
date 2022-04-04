@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Address from '../../components/address'
 import Name from '../../components/name'
+import IdNumber from '../../components/id-number'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import statesOnlineInfo from '../../public/states-online-info'
@@ -313,13 +314,9 @@ export default function Home(props) {
                     <input id="birthDate" name="birthDate" type="date" defaultValue={birthDate} required />
                   </div>
                 </div>
-                <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
-                <div className="row">
-                  <div className="col">
-                    <label htmlFor="idNumber">ID Number</label>
-                    <input id="idNumber" name="idNumber" type="text" required />
-                  </div>
-                </div>
+
+                <IdNumber state={state} />
+
                 <div className="row">
                   <div className="col">
                     <label htmlFor="race">Race {!stateMailInfo.requires_race && "(optional but appreciated)"}</label>

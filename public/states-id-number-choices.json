@@ -1,0 +1,586 @@
+{
+  "Alabama": [
+    {
+      "description": "Social security number",
+      "title": "Social Security #"
+    },
+    {
+      "description": "I don't have a social security number",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Alaska": [
+    {
+      "description": "AK driver's license or state identification card",
+      "title": "Driver's License or State ID Card #"
+    },
+    {
+      "description": "Social security number (if you don't have an AK driver's license or state identification card)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Arizona": [
+    {
+      "description": "AZ driver's license or non-operating identification issued after October 1, 1996",
+      "title": "Driver's License or Non-Operating ID #"
+    },
+    {
+      "description": "I do not have an AZ driver's license or non-operating identification issued after October 1, 1996",
+      "title": "Enter the word \"NONE\" below and attach proof of citizenship when you mail in your form"
+    }
+  ],
+  "Arkansas": [
+    {
+      "description": "AR driver's license or non-operating identification license",
+      "title": "Driver's License or Non-Operating ID #"
+    },
+    {
+      "description": "Social security number (if you don't have an AR driver's license or non-operating identification)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "California": [
+    {
+      "description": "CA driver's license or ID card",
+      "title": "Driver's License or ID Card Number"
+    },
+    {
+      "description": "Social security number (if you don't have a California driver's license or ID card)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Colorado": [
+    {
+      "description": "CO driver's license or ID card",
+      "title": "Driver's License or ID Card Number"
+    },
+    {
+      "description": "Social security number (if you don't have a CO driver's license or ID card)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Connecticut": [
+    {
+      "description": "CT driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a CT driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ],
+  "Delaware": [
+    {
+      "description": "DE driver's license or non-operating identification",
+      "title": "Driver's License or ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a DE driver's license or non-operating identification)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Washington, D.C.": [
+    {
+      "description": "DC driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a DC driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ],
+  "Florida": [
+    {
+      "description": "FL driver's license or non-operating identification",
+      "title": "Driver's License or ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a FL driver's license or non-operating identification)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Georgia": [
+    {
+      "description": "GA driver's license or state-issued identification",
+      "title": "Driver's License or ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a GA driver's license or state-issued identification)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Hawaii": [
+    {
+      "description": "",
+      "title": "Social Security Number"
+    }
+  ],
+  "Idaho": [
+    {
+      "description": "ID driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have an ID driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Illinois": [
+    {
+      "description": "IL driver's license or state ID",
+      "title": "Driver's License or State ID #"
+    },
+    {
+      "description": "Social security number (if you don't have an IL driver's license or state ID",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below and send with this application either (i) a copy of a current and valid photo identification, or (ii) a copy of a current utility bill, bank statement, government check, paycheck, or other government document that shows the name and address of the voter. If you do not provide one of these, then you will be required to provide it the first time you vote at a voting place."
+    }
+  ],
+  "Indiana": [
+    {
+      "description": "IN driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have an IN driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Iowa": [
+    {
+      "description": "IA driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have an IA driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Kansas": [
+    {
+      "description": "KS driver's license or nondriver's identification card",
+      "title": "Driver's license or nondriver's identification number"
+    },
+    {
+      "description": "Social security number (if you don't have a KS driver's license or nondriver's identification card)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Kentucky": [
+    {
+      "description": "",
+      "title": "Social Security # (in Kentucky, no person shall be denied the right to register because of failure to include social security number)"
+    }
+  ],
+  "Louisiana": [
+    {
+      "description": "LA driver's license or special identification card",
+      "title": "Driver's License or Special ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a LA driver's license or special identification card)",
+      "title": "Social Security Number (at least the last four digits)"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below and attach one of the following to your application: (a) a copy of a current and valid photo identification; or (b) a copy of a current utility bill, bank statement, government check, paycheck, or other government document that shows the name and address of applicant"
+    }
+  ],
+  "Maine": [
+    {
+      "description": "ME driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a ME driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Maryland": [
+    {
+      "description": "MD driver's license or MVA ID card",
+      "title": "Driver's license or MVA ID card number"
+    },
+    {
+      "description": "Social security number (if you don't have a MD driver's license or MVA ID card)",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ],
+  "Massachusetts": [
+    {
+      "description": "MA driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a current and valid MA driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Michigan": [
+    {
+      "description": "MI driver's license or state-issued personal ID card",
+      "title": "Driver's License or State-Issued Personal ID Card Number"
+    },
+    {
+      "description": "Social security number (if you don't have a MI driver's license or state-issued personal ID card)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Minnesota": [
+    {
+      "description": "MN driver's license or state ID",
+      "title": "Driver's license or state ID number"
+    },
+    {
+      "description": "Social security number (if you don't have a MN driver's license or state ID)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Mississippi": [
+    {
+      "description": "MS driver's license (current and valid)",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a current and valid MS driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Missouri": [
+    {
+      "description": "MO driver's license and a social security number",
+      "title": "Enter your driver's license number AND the last four digits of your Social Security number below, separated by a space"
+    },
+    {
+      "description": "I do not have a MO driver's license or a social security number",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Montana": [
+    {
+      "description": "MT driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a MT driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Nebraska": [
+    {
+      "description": "NE driver's license (current and valid)",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a current and valid NE driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ],
+  "Nevada": [
+    {
+      "description": "NV driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a NV driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Contact your county clerk to be assigned a unique identifier"
+    }
+  ],
+  "New Jersey": [
+    {
+      "description": "NJ driver's license or MVC non-driver ID",
+      "title": "Driver's License or MVC Non-Driver ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a NJ driver's license or MVC non-driver ID)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Affirm in the space below that you do not have any of these numbers"
+    }
+  ],
+  "New Mexico": [
+    {
+      "description": "Social security number",
+      "title": "Social Security #"
+    }
+  ],
+  "New York": [
+    {
+      "description": "NY driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a NY driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "North Carolina": [
+    {
+      "description": "NC driver's license or Department of Motor Vehicles identification number",
+      "title": "Driver's License or DMV ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a NC driver's license or Department of Motor Vehicles identification number)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Ohio": [
+    {
+      "description": "Social security number",
+      "title": "Social Security # (full or last 4 digits)"
+    },
+    {
+      "description": "OH driver's license number",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Oklahoma": [
+    {
+      "description": "Valid OK driver's license or state ID card",
+      "title": "Driver's License or State ID Card #"
+    },
+    {
+      "description": "Social security number",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ],
+  "Oregon": [
+    {
+      "description": "OR driver's license or non-driver ID",
+      "title": "Driver's License or Non-Driver ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a OR driver's license or non-driver ID)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Pennsylvania": [
+    {
+      "description": "PA driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a PA driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Rhode Island": [
+    {
+      "description": "RI driver's license or state ID",
+      "title": "Driver's License or State ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a RI driver's license or state ID)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "South Carolina": [
+    {
+      "description": "Social security number",
+      "title": "Social Security # (last 4 digits or full)"
+    }
+  ],
+  "South Dakota": [
+    {
+      "description": "SD driver's license or nondriver ID",
+      "title": "Driver's License or Nondriver ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a SD driver's license or nondriver ID)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Tennessee": [
+    {
+      "description": "Social security number",
+      "title": "Social Security #"
+    }
+  ],
+  "Texas": [
+    {
+      "description": "TX driver's license or personal identification number",
+      "title": "Driver's License or Persoanl Identification #"
+    },
+    {
+      "description": "Social security number (if you don't have a TX driver's license or personal identification number)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Utah": [
+    {
+      "description": "UT driver's license or non-operating identification license",
+      "title": "Driver's License or Non-Operating Identification License #"
+    },
+    {
+      "description": "Social security number (if you don't have a UT driver's license or non-operating identification license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Vermont": [
+    {
+      "description": "VT driver's license",
+      "title": "Driver's License #"
+    },
+    {
+      "description": "Social security number (if you don't have a VT driver's license)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Virginia": [
+    {
+      "description": "Social security number",
+      "title": "Social Security #"
+    }
+  ],
+  "Washington": [
+    {
+      "description": "WA driver's license or ID card",
+      "title": "Driver's License or ID Card #"
+    },
+    {
+      "description": "Social security number (if you don't have a WA driver's license or ID card)",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ],
+  "West Virginia": [
+    {
+      "description": "WV driver's license or non-driver ID",
+      "title": "Driver's License or Non-Driver ID #"
+    },
+    {
+      "description": "Social security number (if you don't have a WV driver's license or non-driver ID)",
+      "title": "Last Four Digits of Social Security #"
+    },
+    {
+      "description": "I do not have any of these numbers",
+      "title": "Enter the word \"NONE\" below"
+    }
+  ],
+  "Wisconsin": [
+    {
+      "description": "WI driver's license or DOT-issued ID card",
+      "title": "Driver's License or DOT-issued ID Card #"
+    },
+    {
+      "description": "Social security number (if you don't have a WI driver's license or DOT-issued ID card)",
+      "title": "Last Four Digits of Social Security #"
+    }
+  ]
+}
