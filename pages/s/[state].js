@@ -235,34 +235,34 @@ export default function Home(props) {
 
         {stateOnlineInfo.ovrAvailable &&
           <div>
-            <h1>Register Online</h1>
+            <h1>Finish Registering Online</h1>
 
             {stateOnlineInfo.ovrRequirements
-              ? <p>If you have {stateOnlineInfo.ovrRequirements}, you can register online with the state.</p>
-              : <p>Any {state} resident can register to vote online.</p>
+              ? <p>If you have {stateOnlineInfo.ovrRequirements}, you can finish registering online with the state.</p>
+              : <p>As a resident of {state}, you can finish registering online.</p>
             }
 
             {stateOnlineInfo.ovrNotes && <p>Click the button below. <strong>{stateOnlineInfo.ovrNotes}</strong></p>}
 
-            <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary" onClick={registerOnline}>Register Online</a></p>
+            <p><a href={`${stateOnlineInfo.ovrLink}`} target="_blank" rel="noreferrer" className="button primary" onClick={registerOnline}>Finish Registering Online</a></p>
 
             {stateOnlineInfo.ovrRequirements
-              ? <p>Otherwise, you can register by mail.</p>
-              : <p>Or, if you prefer, you can register by mail.</p>
+              ? <p>Otherwise, you can print and mail your registration.</p>
+              : <p>Or, if you prefer, you can print and mail your registration.</p>
             }
 
-            <p><button className="button secondary" onClick={showMailForm}>Register By Mail</button></p>
+            <p><button className="button secondary" onClick={showMailForm}>Print and Mail Your Registration</button></p>
           </div>
         }
 
         {mailFormShowing &&
           <div>
-            <h1>Register By Mail</h1>
+            <h1>Print and Mail Your Registration</h1>
             {!stateOnlineInfo.ovrAvailable &&
-              <p>{state} does not have online voter registration, so you must register by mail (or in person).</p>
+              <p>{state} does not have online voter registration, so you must print and mail your registration (or register in person).</p>
             }
             <ol>
-              <li>Fill out the form below.</li>
+              <li>Finish filling out the form below.</li>
               {statePrintingAvailable
                 ? <li>Either you can print it, or we can print it and mail it to you.</li>
                 : <li>Print it out.</li>
