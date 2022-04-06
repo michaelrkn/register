@@ -5,6 +5,7 @@ import Name from '../../components/name'
 import IdNumber from '../../components/id-number'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { captureException, addBreadcrumb } from '@sentry/nextjs';
 import statesOnlineInfo from '../../public/states-online-info'
 import statesMailInfo from '../../public/states-mail-info'
 import statesPrintingAvailable from '../../public/states-printing-available'
@@ -171,7 +172,7 @@ export default function Home(props) {
         alert('Your form is being created and sent to ' + event.target.email.value + '. Please check your email and print, sign, and mail in your form ASAP.')
         setSubmitting(false)
       } else {
-        redirectToPdf(response)
+        redirectToPdf(response, data)
       }
     } else {
       setSubmitting(false)
@@ -189,15 +190,25 @@ export default function Home(props) {
            message === '{"field_name":"state_id_number","message":"Numero ng ID ay hindi valid."}'
   }
 
-  const redirectToPdf = async (response) => {
+  const redirectToPdf = async (response, data) => {
     const result = await response.json()
     const forSeconds = (seconds) => new Promise(res => setTimeout(res, seconds * 1000))
     await forSeconds(4) // 4 seconds seems to be the minimum time needed to generate
     for (var i = 0; i <= 10; i++) {
       if (i === 10) {
         setSubmitting(false)
+        try {
+          throw new Error('Waiting too long for RTV PDF')
+        } catch(e) {
+          addBreadcrumb({
+            category: 'fetch',
+            message: 'registrations fetch body',
+            data: data,
+            level: 'info'
+          })
+          captureException(e)
+        }
         alert("Your application is taking longer than usual to prepare. We will email it to you when it's ready.")
-        throw 'Waiting too long for RTV PDF'
       }
       const pdfCheck = await fetch("/api/rtv?path=" + result.pdfurl.replace("https://register.rockthevote.com", ""))
       const pdfCheckResult = await pdfCheck.text()
