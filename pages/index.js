@@ -7,7 +7,7 @@ import { formatBirthDate } from '../lib/time-tools'
 
 export default function Home() {
   const router = useRouter()
-  const { partnerId, source, hideHeader } = router.query
+  const { partnerId, source, hideHeader, newIdUx } = router.query
 
   const hideHeaderValue = hideHeader ? JSON.parse(hideHeader) : false
 
@@ -57,10 +57,23 @@ export default function Home() {
 
       window.parent.postMessage('firstFormSubmitted', '*')
 
-      const userQueryParams = `zip=${zip}&email=${data.email_address}&optIn=${optIn}&birthDate=${event.target.birthDate.value}&title=${data.name_title}&firstName=${data.first_name}&lastName=${data.last_name}&suffix=${data.name_suffix}&citizen=${isCitizen}`
-      const queryParamsWithPartner = partnerId ? userQueryParams + `&partnerId=${partnerId}` : userQueryParams
-      const queryParamsWithSource = source ? queryParamsWithPartner + `&source=${source}` : queryParamsWithPartner
-      router.push(`/s/${state}?` + queryParamsWithSource)
+      router.push({
+        pathname: '/s/' + state,
+        query: {
+          zip: zip,
+          email: data.email_address,
+          optIn: optIn,
+          birthDate: event.target.birthDate.value,
+          title: data.name_title,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          suffix: data.name_suffix,
+          citizen: isCitizen,
+          partnerId: partnerId,
+          source: source,
+          newIdUx: newIdUx
+        }
+      })
     }
   }
 

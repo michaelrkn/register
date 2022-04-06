@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
   const router = useRouter()
   const { state } = props
-  const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId, source } = router.query
+  const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId, source, newIdUx } = router.query
 
   const stateOnlineInfo = statesOnlineInfo[state]
   const stateMailInfo = statesMailInfo[state]
@@ -326,7 +326,18 @@ export default function Home(props) {
                   </div>
                 </div>
 
-                <IdNumber state={state} />
+                {newIdUx
+                  ? <IdNumber state={state} />
+                  : <div>
+                      <label>In the space below for ID Number: {stateMailInfo.id_number_msg}</label>
+                      <div className="row">
+                        <div className="col">
+                          <label htmlFor="idNumber">ID Number</label>
+                          <input id="idNumber" name="idNumber" type="text" required />
+                        </div>
+                      </div>
+                    </div>
+                }
 
                 <div className="row">
                   <div className="col">
