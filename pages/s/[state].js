@@ -196,7 +196,7 @@ export default function Home(props) {
     for (var i = 0; i <= 10; i++) {
       if (i === 10) {
         setSubmitting(false)
-        alert("We're sorry, something went wrong when generating your form. Please try again.")
+        alert("Your application is taking longer than usual to prepare. We will email it to you when it's ready.")
         throw 'Waiting too long for RTV PDF'
       }
       const pdfCheck = await fetch("/api/rtv?path=" + result.pdfurl.replace("https://register.rockthevote.com", ""))
