@@ -105,11 +105,11 @@ export default function Home(props) {
       us_citizen: isCitizen,
       has_state_license: false,
       is_eighteen_or_older: calculateAge(birthDate) >= 18,
-      name_title: event.target.title.value,
-      first_name: event.target.firstName.value,
+      name_title: event.target.titleLegal.value,
+      first_name: event.target.firstNameLegal.value,
       middle_name: '',
-      last_name: event.target.lastName.value,
-      name_suffix: event.target.suffix.value,
+      last_name: event.target.lastNameLegal.value,
+      name_suffix: event.target.suffixLegal.value,
       home_address: event.target.homeAddress.value,
       home_unit: event.target.homeUnit.value,
       home_city: event.target.homeCity.value,
@@ -298,7 +298,7 @@ export default function Home(props) {
                   </div>
                 </div>
                 {hasPreviousRegistration && <Address type="Previous" state="" zip="" />}
-                <Name type="" title={title} firstName={firstName} lastName={lastName} suffix={suffix} />
+                <Name type="Legal" title={title} firstName={firstName} lastName={lastName} suffix={suffix} />
                 <div className="row">
                   <div className="col">
                     <label htmlFor="previousName">

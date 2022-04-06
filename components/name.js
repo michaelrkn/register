@@ -4,7 +4,7 @@ export default function Name(props) {
     <div>
       <div className="row">
         <div className="col-2">
-          <label htmlFor={"title" + type}>{type} Title</label>
+          <label htmlFor={"title" + type}>Title</label>
           <select id={"title" + type} name={"title" + type} defaultValue={title} required>
             <option></option>
             <option value="Mr.">Mr.</option>
@@ -22,7 +22,7 @@ export default function Name(props) {
           <input id={"lastName" + type} name={"lastName" + type} type="text" defaultValue={lastName} required />
         </div>
         <div className="col-3">
-          <label htmlFor={"suffix" + type}>{type} Suffix</label>
+          <label htmlFor={"suffix" + type}>Suffix</label>
           <select id={"suffix" + type} name={"suffix" + type} defaultValue={suffix}>
             <option></option>
             <option value="Jr.">Jr.</option>

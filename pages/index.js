@@ -39,10 +39,10 @@ export default function Home() {
         email_address: event.target.email.value,
         home_zip_code: zip,
         us_citizen: isCitizen,
-        name_title: event.target.title.value,
-        first_name: event.target.firstName.value,
-        last_name: event.target.lastName.value,
-        name_suffix: event.target.suffix.value,
+        name_title: event.target.titleLegal.value,
+        first_name: event.target.firstNameLegal.value,
+        last_name: event.target.lastNameLegal.value,
+        name_suffix: event.target.suffixLegal.value,
         opt_in_email: optIn,
         source_tracking_id: source
       }
@@ -122,7 +122,7 @@ export default function Home() {
               </label>
             </div>
           </div>
-          <Name type="" />
+          <Name type="Legal" />
           <div className="row">
             <div className="col">
               <label htmlFor="zip">Zip Code</label>
