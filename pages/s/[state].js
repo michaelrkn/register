@@ -186,7 +186,7 @@ export default function Home(props) {
 
   const isInvalidIdError = (message) => {
     return message === '{"field_name":"state_id_number","message":"ID Number is invalid."}' ||
-    message === '{"field_name":"state_id_number","message":"Numero ng ID ay hindi valid."}'
+           message === '{"field_name":"state_id_number","message":"Numero ng ID ay hindi valid."}'
   }
 
   const redirectToPdf = async (response) => {
