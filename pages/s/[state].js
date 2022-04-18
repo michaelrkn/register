@@ -177,17 +177,18 @@ export default function Home(props) {
     } else {
       setSubmitting(false)
       const error = await response.text()
-      if (isInvalidIdError(error)) {
-        alert('The ID number you entered is invalid.')
+      if (errorMapping[error]) {
+        alert(errorMapping[error])
       } else {
         alert(error)
       }
     }
   }
 
-  const isInvalidIdError = (message) => {
-    return message === '{"field_name":"state_id_number","message":"ID Number is invalid."}' ||
-           message === '{"field_name":"state_id_number","message":"Numero ng ID ay hindi valid."}'
+  const errorMapping = {
+    '{"field_name":"state_id_number","message":"ID Number is invalid."}': 'The ID number you entered is invalid.',
+    '{"field_name":"state_id_number","message":"Numero ng ID ay hindi valid."}': 'The ID number you entered is invalid.',
+    '{"field_name":"date_of_birth","message":"Should be MM-DD-YYYY"}': 'Enter your birthdate as YYYY-MM-DD, like 2000-12-03.'
   }
 
   const redirectToPdf = async (response, data) => {
