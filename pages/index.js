@@ -159,8 +159,8 @@ export default function Home() {
           </div>
           <div className="row">
             <div className="col">
-              <label htmlFor="birthDate">Date of Birth {isInternetExplorer ? '(enter as YYYY-MM-DD, like 2000-12-03)' : ''}</label>
-              <input id="birthDate" name="birthDate" type="date" required />
+              <label htmlFor="birthDate">Date of Birth {isInternetExplorer ? '(enter as YYYY-MM-DD, like 1992-05-23)' : ''}</label>
+              <input id="birthDate" name="birthDate" type="date" required placeholder="YYYY-MM-DD" />
             </div>
           </div>
           <div className="row">
