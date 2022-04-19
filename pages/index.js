@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Name from '../components/name'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { zipToState } from '../lib/zip-to-state'
 import { formatBirthDate } from '../lib/time-tools'
 
@@ -21,16 +21,25 @@ export default function Home() {
     setCitizen(!isCitizen)
   }
 
+  const [isInternetExplorer, setInternetExplorer] = useState(false)
+  useEffect(() => {
+    if (window.document.documentMode) {
+      setInternetExplorer(true)
+    }
+  })
+
   const createRegistrant = async (event) => {
     event.preventDefault()
 
     const zip = event.target.zip.value
     const state = zipToState(zip)
+    const formattedBirthDate = formatBirthDate(event.target.birthDate.value)
+
     if (state === undefined) {
       alert("Please enter a valid zip code.")
+    } else if (formattedBirthDate.includes('undefined')) {
+      alert("Enter your birthdate as YYYY-MM-DD, like 2000-12-03.")
     } else {
-      const formattedBirthDate = formatBirthDate(event.target.birthDate.value)
-
       const data = {
         lang: 'en',
         partner_id: partnerId || '1',
@@ -150,7 +159,7 @@ export default function Home() {
           </div>
           <div className="row">
             <div className="col">
-              <label htmlFor="birthDate">Date of Birth</label>
+              <label htmlFor="birthDate">Date of Birth {isInternetExplorer ? '(enter as YYYY-MM-DD, like 2000-12-03)' : ''}</label>
               <input id="birthDate" name="birthDate" type="date" required />
             </div>
           </div>
