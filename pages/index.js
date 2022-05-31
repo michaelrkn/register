@@ -7,9 +7,10 @@ import { formatBirthDate } from '../lib/time-tools'
 
 export default function Home() {
   const router = useRouter()
-  const { partnerId, source, hideHeader, newIdUx } = router.query
+  const { partnerId, source, hideHeader, newIdUx, collectPhone } = router.query
 
   const hideHeaderValue = hideHeader ? JSON.parse(hideHeader) : false
+  const showPhone = collectPhone ? JSON.parse(collectPhone) : false
 
   const [optIn, setOptIn] = useState(true)
   const toggleOptIn = () => {
@@ -40,21 +41,30 @@ export default function Home() {
     } else if (formattedBirthDate.includes('undefined')) {
       alert("Enter your birthdate as YYYY-MM-DD, like 2000-12-03.")
     } else {
-      const data = {
+      const basicData = {
         lang: 'en',
         partner_id: partnerId || '1',
         send_confirmation_reminder_emails: false,
         date_of_birth: formattedBirthDate,
-        email_address: event.target.email.value,
         home_zip_code: zip,
         us_citizen: isCitizen,
         name_title: event.target.titleLegal.value,
         first_name: event.target.firstNameLegal.value,
         last_name: event.target.lastNameLegal.value,
         name_suffix: event.target.suffixLegal.value,
-        opt_in_email: optIn,
         source_tracking_id: source
       }
+      const contactData = showPhone ? {
+        phone: showPhone ? event.target.phone.value : '',
+        phone_type: 'Mobile',
+        opt_in_sms: optIn,
+        email_address: (Math.random() + 1).toString(36).substring(7) + '@example.com',
+        opt_in_email: false
+      } : {
+        email_address: event.target.email.value,
+        opt_in_email: optIn
+      }
+      const data = Object.assign(basicData, contactData)
       const options = {
         method: "POST",
         headers: {
@@ -71,6 +81,7 @@ export default function Home() {
         query: {
           zip: zip,
           email: data.email_address,
+          phone: data.phone,
           optIn: optIn,
           birthDate: event.target.birthDate.value,
           title: data.name_title,
@@ -152,10 +163,16 @@ export default function Home() {
             </div>
           </div>
           <div className="row">
-            <div className="col">
-              <label htmlFor="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
+            {showPhone
+              ? <div className="col">
+                  <label htmlFor="phone">Cell Phone (numbers only)</label>
+                  <input id="phone" name="phone" type="tel" maxLength="10" minLength="10" required />
+                </div>
+              : <div className="col">
+                  <label htmlFor="email">Email</label>
+                  <input id="email" name="email" type="email" required />
+                </div>
+            }
           </div>
           <div className="row">
             <div className="col">
@@ -167,7 +184,7 @@ export default function Home() {
             <div className="col">
               <label htmlFor="optIn">
                 <input id="optIn" name="optIn" type="checkbox" defaultChecked onChange={toggleOptIn} />
-                Send me my voting location, how to vote by mail, and other voting info
+                {showPhone ? "Text" : "Send"} me my voting location, how to vote by mail, and other voting info
               </label>
             </div>
           </div>

@@ -21,7 +21,8 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
   const router = useRouter()
   const { state } = props
-  const { zip, email, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId, source, newIdUx } = router.query
+  const { zip, email, phone, optIn, birthDate, title, firstName, lastName, suffix, citizen, partnerId, source, newIdUx } = router.query
+  const optInChoice = optIn ? JSON.parse(optIn) : false
 
   const stateOnlineInfo = statesOnlineInfo[state]
   const stateMailInfo = statesMailInfo[state]
@@ -61,21 +62,34 @@ export default function Home(props) {
   }
 
   const registerOnline = async() => {
-    const data = {
+    const basicData = {
       lang: 'en',
       partner_id: partnerId || '1',
-      send_confirmation_reminder_emails: true,
       date_of_birth: formatBirthDate(birthDate),
       email_address: email,
+      phone: phone,
       home_zip_code: zip,
       us_citizen: isCitizen,
       name_title: title,
       first_name: firstName,
       last_name: lastName,
       name_suffix: suffix,
-      opt_in_email: optIn,
+      opt_in_email: optInChoice,
       source_tracking_id: source
     }
+    const contactData = phone ? {
+      phone: phone,
+      phone_type: 'Mobile',
+      opt_in_sms: optInChoice,
+      email_address: email,
+      opt_in_email: false,
+      send_confirmation_reminder_emails: false
+    } : {
+      email_address: email,
+      opt_in_email: optInChoice,
+      send_confirmation_reminder_emails: true
+    }
+    const data = Object.assign(basicData, contactData)
     const options = {
       method: "POST",
       headers: {
@@ -119,12 +133,12 @@ export default function Home(props) {
       has_mailing_address: hasMailingAddress,
       race: event.target.race.value,
       party: event.target.party.value,
-      phone: '',
-      phone_type: '',
+      phone: phone ? phone : '',
+      phone_type: phone ? 'Mobile' : '',
       change_of_name: nameChanged,
       change_of_address: hasPreviousRegistration,
-      opt_in_email: JSON.parse(optIn) || medium === 'email',
-      opt_in_sms: false,
+      opt_in_email: optInChoice || medium === 'email',
+      opt_in_sms: phone ? optInChoice : false,
       opt_in_volunteer: false,
       partner_opt_in_email: false,
       partner_opt_in_sms: false,
@@ -393,7 +407,7 @@ export default function Home(props) {
                   <div className="row">
                     <div className="col">
                       <label htmlFor="email">Email</label>
-                      <input type="text" id="email" name="email" defaultValue={email} required />
+                      <input type="text" id="email" name="email" defaultValue={phone ? '' : email} required />
                     </div>
                   </div>
                 </div>
